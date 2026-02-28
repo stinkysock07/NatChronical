@@ -31,19 +31,18 @@ export async function fetchArticles(): Promise<Article[]> {
     if (!data || !Array.isArray(data)) return [];
 
     return data.map((item: any) => {
-      const attrs = item.attributes || item;
 
       return {
         id: item.id,
-        Title: attrs?.Title,
-        Genre: attrs?.Genre,
-        Author: attrs?.Author,
-        Date_pub: attrs?.Date_pub,
-        slug: attrs?.slug,
-        Content: attrs?.Content,
-        Featured: attrs?.Featured,
-        picture: attrs?.picture?.data?.attributes?.url
-          ? `${STRAPI_URL}${attrs?.picture.data.attributes.url}`
+        Title: item?.Title,
+        Genre: item?.Genre,
+        Author: item?.Author,
+        Date_pub: item?.Date_pub,
+        slug: item?.slug,
+        Content: item?.Content,
+        Featured: item?.Featured,
+        picture: item?.picture?.data?.attributes?.url
+          ? `${STRAPI_URL}${item?.picture.data.attributes.url}`
           : undefined,
       };
     });
