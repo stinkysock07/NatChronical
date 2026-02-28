@@ -18,7 +18,7 @@ export interface Tip {
   date: string;
 }
 
-const STRAPI_URL = 'http://localhost:1337';
+const STRAPI_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
 
 export async function fetchArticles(): Promise<Article[]> {
   try {
