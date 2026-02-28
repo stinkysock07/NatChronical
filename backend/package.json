@@ -36,9 +36,5 @@
   "engines": {
     "node": ">=20.0.0 <=24.x.x",
     "npm": ">=6.0.0"
-  },
-  "strapi": {
-    "uuid": "1b4a097f-c49c-495d-a315-1523dd37d7bb",
-    "installId": "5cfe6268d7c17c76d9dcd330be1505e6515e5b49102285de859dd4500ce5dec4"
   }
 }

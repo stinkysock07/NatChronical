@@ -16,7 +16,7 @@ WORKDIR /opt/app
 
 COPY package.json package-lock.json ./
 
-RUN npm install --build-from-source
+RUN npm install
 
 COPY . .
 
