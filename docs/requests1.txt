@@ -1,0 +1,17 @@
+1. Bro said he wanted to have slideshow for only featured articles,
+can use bool featured to toggle that. 
+ -  Add slideshow feature
+
+ 2. Also need some kind of way to filter articles into 4 distinct categories:
+    -   report
+    -   live coverage
+    -   summary
+    -   whatever else
+
+    prolly implement in only articles page, to keep home chill. No reason 
+    to make it gridded. 
+
+Writing docs for a solo project seems ridickolis
+
+Update README.md
+

@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "Article"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Genre": {
+      "type": "enumeration",
+      "enum": [
+        "Politics",
+        "Economics",
+        "Science",
+        "Sports",
+        "Culture",
+        "Editorials"
+      ]
+    },
+    "Author": {
+      "type": "string"
+    },
+    "Date_pub": {
+      "type": "datetime"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "Content": {
+      "type": "text"
+    },
+    "Featured": {
+      "type": "boolean"
+    },
+    "picture": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

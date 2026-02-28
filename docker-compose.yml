@@ -1,0 +1,21 @@
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    stdin_open: true
+  backend-1:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile 
+    ports:
+      - "1337:1337"
+    volumes:
+      - ./backend:/opt/app
+      - /opt/app/node_modules
+    stdin_open: true
