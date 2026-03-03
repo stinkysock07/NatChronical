@@ -17,6 +17,9 @@
     "Email": {
       "type": "email"
     },
+    "subject": {
+      "type": "string"
+    },
     "Tip_Description": {
       "type": "string"
     },

@@ -1,16 +1,15 @@
 'use client';
 import { useState } from 'react';
-import { Tip } from '../../lib/data';
+import { postTip, Tip } from '../../lib/data';
 import DOMPurify from 'dompurify';
 
 export default function Home() {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [formData, setFormData] = useState({
-    id: 0,
     name: '',
     contact_email: '',
+    subject: '',
     description: '',
-    date: '',
   });
 
   const handleChange = (
@@ -23,21 +22,24 @@ export default function Home() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const cleanName = isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.name);
-    const cleanEmail = isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.contact_email);
-    const cleanDescription = DOMPurify.sanitize(formData.description);
+    try{
+      const tipToSubmit = {
+        name: isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.name),
+        contact_email: isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.contact_email),
+        subject: DOMPurify.sanitize(formData.subject),
+        description: DOMPurify.sanitize(formData.description),
+      }
 
-    const finalTip: Tip = {
-      ...formData,
-      id: crypto.randomUUID(),
-      name: cleanName,
-      contact_email: cleanEmail,
-      description: cleanDescription,
-      date: new Date().toISOString(),
-    };
+       await postTip(tipToSubmit);
+
+       setFormData({ name: '', contact_email: '', subject: '', description: '' });
+       setIsAnonymous(false)
+    } catch (err) {
+    alert('There was an error sending your tip. Please try again.');
+  }
   };
 
   return (
@@ -69,7 +71,7 @@ export default function Home() {
             ></input>
 
             <input
-              name="email"
+              name="contact_email"
               placeholder="Your Email..."
               onChange={handleChange}
               className="rounded-md border-2 p-2 outline-none focus:border-[#C8A75A]"
@@ -77,6 +79,12 @@ export default function Home() {
             ></input>
           </>
         )}
+        <input name="subject"
+        placeholder="The Subject..."
+        onChange={handleChange}
+        className="rounded-md border-2 p-2 pb-20 outline-none focus:border-[#C8A75A]"
+        required
+        ></input>
         <textarea
           name="description"
           placeholder="Your Tip..."
