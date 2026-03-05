@@ -16,6 +16,12 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
           Bucket: process.env.CF_BUCKET_NAME,
         },
       },
+      security: {
+        contentTypes: {
+          allowedTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+          maxFileSize: 52428800, // 50MB
+        },
+      },
     },
   },
 });
