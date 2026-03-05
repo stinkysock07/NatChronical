@@ -93,6 +93,7 @@ export default function Home() {
       setLoading(false);
     }
   };
+console.log("Client-side Key Check:", process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
   return (
     <div className="grid grid-cols-2 max-w-150">
