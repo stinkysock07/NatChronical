@@ -14,11 +14,18 @@ COPY package.json package-lock.json ./
 RUN npm install --build-from-source
 COPY . .
 
-# 2. Hardcode the keys directly into the environment for this build
-ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAACm9vGkE2dZHwoU7
-ENV NEXT_PUBLIC_API_URL=https://ncn-backend.up.railway.app
+# --- DYNAMIC INJECTION START ---
+# 1. Declare the arguments
+ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
+ARG NEXT_PUBLIC_API_URL
+
+# 2. Assign them so Next.js can see them during 'npm run build'
+ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+# --- DYNAMIC INJECTION END ---
 
 RUN npm run build
 
-EXPOSE 3000
+EXPOSE 8080
+
 CMD ["npm", "run", "start"]
