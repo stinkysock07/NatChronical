@@ -486,7 +486,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     Date_pub: Schema.Attribute.DateTime;
     Featured: Schema.Attribute.Boolean;
     Genre: Schema.Attribute.Enumeration<
-      ['Politics', 'Economics', 'Science', 'Sports', 'Culture', 'Editorials']
+      ['Politics', 'Economics', 'Science', 'Sports', 'Culture']
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -498,6 +498,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID;
     Title: Schema.Attribute.String;
+    Type: Schema.Attribute.Enumeration<['opinion', 'analysis', 'editorial']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

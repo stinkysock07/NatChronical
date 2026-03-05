@@ -21,8 +21,7 @@
         "Economics",
         "Science",
         "Sports",
-        "Culture",
-        "Editorials"
+        "Culture"
       ]
     },
     "Author": {
@@ -48,6 +47,14 @@
         "files",
         "videos",
         "audios"
+      ]
+    },
+    "Type": {
+      "type": "enumeration",
+      "enum": [
+        "opinion",
+        "analysis",
+        "editorial"
       ]
     }
   }
