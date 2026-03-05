@@ -13,6 +13,9 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
           endpoint: process.env.CF_R2_ENDPOINT,
         },
       },
+      params: {
+        Bucket: process.env.CF_BUCKET_NAME,
+      },
     },
   },
 });
