@@ -46,9 +46,11 @@ export async function fetchArticles(): Promise<Article[]> {
         Content: item.Content,
         Featured: item.Featured,
         picture: item.picture?.url
-          ? `${STRAPI_URL}${item.picture.url}`
-          : undefined,
-      };
+          ? (item.picture.url.startsWith('http') 
+          ? item.picture.url 
+          : `${STRAPI_URL}${item.picture.url}`)
+      : undefined,
+  };
     });
   } catch (e) {
     console.error(e);
