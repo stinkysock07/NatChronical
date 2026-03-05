@@ -14,15 +14,14 @@ COPY package.json package-lock.json ./
 RUN npm install --build-from-source
 COPY . .
 
-# --- DYNAMIC INJECTION START ---
-# 1. Declare the arguments
+
 ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
 ARG NEXT_PUBLIC_API_URL
 
-# 2. Assign them so Next.js can see them during 'npm run build'
+
 ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-# --- DYNAMIC INJECTION END ---
+
 
 RUN npm run build
 
