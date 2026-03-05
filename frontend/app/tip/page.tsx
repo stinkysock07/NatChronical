@@ -151,7 +151,7 @@ export default function Home() {
         ></input>
         <div className="flex w-full justify-center">
           <Turnstile
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
             onSuccess={(token) => setTurnstileToken(token)}
             options={{
               theme: 'light',

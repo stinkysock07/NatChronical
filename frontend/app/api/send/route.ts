@@ -8,6 +8,8 @@ export async function POST(req: Request) {
     const { turnstileToken, ...body } = await req.json();
     const { name, contact_email, subject, tip_description } = body;
 
+    const ip = req.headers.get('x-forwarded-for') || '';
+
     const verifyRes = await fetch(
       'https://challenges.cloudflare.com/turnstile/v0/siteverify',
       {
@@ -16,6 +18,7 @@ export async function POST(req: Request) {
         body: new URLSearchParams({
           secret: process.env.TURNSTILE_SECRET_KEY || '',
           response: turnstileToken,
+          remoteip: ip,
         }),
       },
     );
@@ -23,10 +26,11 @@ export async function POST(req: Request) {
     const outcome = await verifyRes.json();
 
     if (!outcome.success) {
-      return NextResponse.json(
-        { error: 'Failed security verification' },
-        { status: 400 },
-      );
+      console.error('Turnstile Error Codes:', outcome['error-codes']); // Logs why it failed
+  return NextResponse.json(
+    { error: 'Failed security verification', details: outcome['error-codes'] },
+    { status: 400 },
+  );
     }
 
     console.log('Email Payload Received:', body);
