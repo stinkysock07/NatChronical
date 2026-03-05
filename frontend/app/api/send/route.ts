@@ -1,11 +1,9 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    
+
   try {
     const { turnstileToken, ...body } = await req.json();
     const { name, contact_email, subject, tip_description } = body;
