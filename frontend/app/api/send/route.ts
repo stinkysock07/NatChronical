@@ -4,6 +4,8 @@ import { NextResponse } from 'next/server';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    
   try {
     const { turnstileToken, ...body } = await req.json();
     const { name, contact_email, subject, tip_description } = body;
@@ -29,7 +31,7 @@ export async function POST(req: Request) {
 
     const { data, error } = await resend.emails.send({
       from: 'Tips <onboarding@resend.dev>',
-      to: [process.env.RESEND_EMAIL], // Use your Resend login email first to be safe
+      to: ['sh33tghost@proton.me'], // Use your Resend login email first to be safe
       subject: `NEW TIP: ${subject || 'No Subject'}`,
       ...hasValidEmail && { replyTo: contact_email }, // Set reply-to only if a valid email is provided
       html: `
