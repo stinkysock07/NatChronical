@@ -1,7 +1,5 @@
 FROM node:24-bookworm-slim
 
-RUN echo "Force fresh build: 1"
-
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
