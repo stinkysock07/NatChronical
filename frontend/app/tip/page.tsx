@@ -151,6 +151,7 @@ console.log("Client-side Key Check:", process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
           required
         ></input>
         <div className="flex w-full justify-center">
+          {typeof process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY === 'string' ? (
           <Turnstile
             siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
             onSuccess={(token) => setTurnstileToken(token)}
@@ -159,6 +160,11 @@ console.log("Client-side Key Check:", process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
               size: 'normal',
             }}
           />
+          ) : (
+            <div className="text-xs text-gray-400 p-4 border border-dashed rounded">
+              Loading security check...
+            </div>
+          )}
         </div>
         <button
           type="submit"
