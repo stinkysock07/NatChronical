@@ -10,8 +10,8 @@ export default ({ env }) => ({
         params: {
           Bucket: env('CF_BUCKET_NAME'),
         },
-        baseUrl: env('R2_DEV_DOMAIN', 'https://pub-da902343a39f42e2b8a99078b67aa4b4.r2.dev'),
-        publicUrl: env('R2_DEV_DOMAIN', 'https://pub-da902343a39f42e2b8a99078b67aa4b4.r2.dev'),
+        // This specific package uses this key name:
+        cloudflarePublicProxy: env('R2_DEV_DOMAIN', 'https://pub-da902343a39f42e2b8a99078b67aa4b4.r2.dev'),
       },
     },
   },
