@@ -17,7 +17,7 @@ export interface Tip {
   contact_email?: string;
   subject: string;
   description: string;
-  date: string;
+  createdAt: string;
 }
 
 const STRAPI_URL =
@@ -79,7 +79,12 @@ export async function postTip(tipData: Omit<Tip, 'id' | 'date'>) {
       throw new Error('Failed to post tip to backend');
     }
 
-    return await response.json();
+    const { data } = await response.json();
+
+    return {
+      id: data.id,
+      ...data.attributes,
+    };
   } catch (e) {
     console.error('Network error:', e);
     throw e;

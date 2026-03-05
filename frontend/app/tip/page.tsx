@@ -5,52 +5,52 @@ import DOMPurify from 'dompurify';
 
 export default function Home() {
   const [isAnonymous, setIsAnonymous] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    contact_email: '',
-    subject: '',
-    description: '',
-  });
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({ name: '', contact_email: '', subject: '', description: '' });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      const tipToSubmit = {
-        name: isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.name),
-        contact_email: isAnonymous
-          ? 'Anonymous'
-          : DOMPurify.sanitize(formData.contact_email),
-        subject: DOMPurify.sanitize(formData.subject),
-        description: DOMPurify.sanitize(formData.description),
-      };
-
-      await postTip(tipToSubmit);
-
-      setFormData({
-        name: '',
-        contact_email: '',
-        subject: '',
-        description: '',
-      });
-      setIsAnonymous(false);
-    } catch (err) {
-      alert('There was an error sending your tip. Please try again.');
-    }
+  const tipToSubmit = {
+    name: isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.name),
+    contact_email: isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.contact_email),
+    subject: DOMPurify.sanitize(formData.subject),
+    description: DOMPurify.sanitize(formData.description),
+    createdAt: new Date().toISOString(),
   };
 
+  try {
+    // 1. Save to Strapi Database
+    await postTip(tipToSubmit);
+
+    // 2. Send Email via Resend API
+    const emailRes = await fetch('/api/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(tipToSubmit),
+    });
+
+    if (!emailRes.ok) throw new Error('Email failed to send');
+
+    // Handle Success
+    setIsSuccess(true);
+    setFormData({ name: '', contact_email: '', subject: '', description: '' });
+    setIsAnonymous(false);
+  } catch (err) {
+    alert('There was an error sending your tip. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
+
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-2">
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <div className="mb-2 flex items-center gap-2 rounded-md border border-gray-200 bg-gray-50 p-3">
           <input
