@@ -12,9 +12,9 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
           bucket: process.env.CF_BUCKET_NAME,
           endpoint: process.env.CF_R2_ENDPOINT,
         },
-      },
-      params: {
+        params: {
         Bucket: process.env.CF_BUCKET_NAME,
+      },
       },
     },
   },
