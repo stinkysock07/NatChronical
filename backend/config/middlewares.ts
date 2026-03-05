@@ -15,7 +15,8 @@ export default ({ env }: { env: any }) => [
             'data:',
             'blob:',
             'market-assets.strapi.io', 
-            env('CF_R2_ENDPOINT'),     
+            env('CF_R2_ENDPOINT'),
+            env('R2_DEV_DOMAIN'),     
           ],
           'media-src': [
             "'self'",
@@ -23,6 +24,7 @@ export default ({ env }: { env: any }) => [
             'blob:',
             'market-assets.strapi.io',
             env('CF_R2_ENDPOINT'),
+            env('R2_DEV_DOMAIN'),
           ],
           upgradeInsecureRequests: null,
         },
