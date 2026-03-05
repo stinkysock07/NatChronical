@@ -3,28 +3,21 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --base-font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
 }
 
-inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-neirizi: var(--font-neirizi);
-  --font-public: var(--font-public-sans);
-}
-
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #f0f0f0;
-    --foreground: #0a0a0a;
+    --background: #0a0a0a; 
+    --foreground: #f0f0f0;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-public-sans), sans-serif;
-}
-
-nav a {
-  font-family: var(--font-public-sans), sans-serif;
+  font-size: var(--base-font-size);
+  font-family: var(--font-public), sans-serif;
+  /* Smooth transition for theme switching */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

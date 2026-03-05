@@ -25,10 +25,10 @@ export default async function ArticlesPage({
                 <Link
                   key={article.id}
                   href={`/article/${article.slug}`}
-                  className="group flex items-center overflow-hidden rounded-xl border transition-all hover:border-[#C8A75A] hover:bg-gray-50"
+                 className="group flex flex-col sm:flex-row overflow-hidden rounded-xl border transition-all"
                 >
                   {article.picture && (
-                    <div className="relative h-24 w-28 shrink-0 overflow-hidden">
+                    <div className="relative h-48 w-full sm:h-24 sm:w-28 shrink-0">
                       <Image
                         src={article.picture}
                         alt={article.Title}
@@ -38,7 +38,7 @@ export default async function ArticlesPage({
                       />
                     </div>
                   )}
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-1 p-4 sm:p-2">
                     <h3 className="pl-2 text-lg font-semibold group-hover:text-blue-600">
                       {article.Title}
                     </h3>
@@ -62,10 +62,10 @@ export default async function ArticlesPage({
                 <Link
                   key={article.id}
                   href={`/article/${article.slug}`}
-                  className="group flex items-center overflow-hidden rounded-xl border transition-all hover:border-[#C8A75A] hover:bg-gray-50"
+       className="group flex flex-col sm:flex-row overflow-hidden rounded-xl border transition-all"
                 >
                   {article.picture && (
-                    <div className="relative h-24 w-28 shrink-0 overflow-hidden">
+                    <div className="relative h-48 w-full sm:h-24 sm:w-28 shrink-0">
                       <Image
                         src={article.picture}
                         alt={article.Title}
@@ -75,7 +75,7 @@ export default async function ArticlesPage({
                       />
                     </div>
                   )}
-                  <div className="flex flex-col gap-1">
+                 <div className="flex flex-col gap-1 p-4 sm:p-2">
                     <h3 className="pl-2 text-lg font-semibold group-hover:text-blue-600">
                       {article.Title}
                     </h3>
@@ -99,10 +99,10 @@ export default async function ArticlesPage({
                 <Link
                   key={article.id}
                   href={`/article/${article.slug}`}
-                  className="group flex items-center overflow-hidden rounded-xl border transition-all hover:border-[#C8A75A] hover:bg-gray-50"
+       className="group flex flex-col sm:flex-row overflow-hidden rounded-xl border transition-all"
                 >
                   {article.picture && (
-                    <div className="relative h-24 w-28 shrink-0 overflow-hidden">
+                    <div className="relative h-48 w-full sm:h-24 sm:w-28 shrink-0">
                       <Image
                         src={article.picture}
                         alt={article.Title}
@@ -112,7 +112,7 @@ export default async function ArticlesPage({
                       />
                     </div>
                   )}
-                  <div className="flex flex-col gap-1">
+                 <div className="flex flex-col gap-1 p-4 sm:p-2">
                     <h3 className="pl-2 text-lg font-semibold group-hover:text-blue-600">
                       {article.Title}
                     </h3>
