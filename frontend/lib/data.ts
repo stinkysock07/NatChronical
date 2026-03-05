@@ -16,7 +16,7 @@ export interface Tip {
   name?: string;
   contact_email?: string;
   subject: string;
-  description: string;
+  tip_description: string;
   createdAt: string;
 }
 
@@ -66,10 +66,12 @@ export async function postTip(tipData: Omit<Tip, 'id' | 'date'>) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         data: {
-          name: tipData.name,
-          contact_email: tipData.contact_email,
-          subject: tipData.subject,
-          description: tipData.description,
+          // Map frontend names -> Strapi names
+          Name: tipData.name,           
+          Email: tipData.contact_email === 'Anonymous' ? undefined : tipData.contact_email,
+          subject: tipData.subject,      
+          Tip_Description: tipData.tip_description, 
+          date: new Date().toISOString(), 
         },
       }),
     });

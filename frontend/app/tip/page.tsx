@@ -7,7 +7,7 @@ export default function Home() {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ name: '', contact_email: '', subject: '', description: '' });
+  const [formData, setFormData] = useState({ name: '', contact_email: '', subject: '', tip_description: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,15 +21,13 @@ export default function Home() {
     name: isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.name),
     contact_email: isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.contact_email),
     subject: DOMPurify.sanitize(formData.subject),
-    description: DOMPurify.sanitize(formData.description),
+    tip_description: DOMPurify.sanitize(formData.tip_description),
     createdAt: new Date().toISOString(),
   };
 
   try {
-    // 1. Save to Strapi Database
     await postTip(tipToSubmit);
 
-    // 2. Send Email via Resend API
     const emailRes = await fetch('/api/send', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -38,9 +36,8 @@ export default function Home() {
 
     if (!emailRes.ok) throw new Error('Email failed to send');
 
-    // Handle Success
     setIsSuccess(true);
-    setFormData({ name: '', contact_email: '', subject: '', description: '' });
+    setFormData({ name: '', contact_email: '', subject: '', tip_description: '' });
     setIsAnonymous(false);
   } catch (err) {
     alert('There was an error sending your tip. Please try again.');
@@ -72,6 +69,7 @@ export default function Home() {
             <input
               name="name"
               placeholder="Your Name..."
+              value={formData.name}
               onChange={handleChange}
               className="rounded-md border-2 p-2 outline-none focus:border-[#C8A75A]"
               required
@@ -80,6 +78,7 @@ export default function Home() {
             <input
               name="contact_email"
               placeholder="Your Email..."
+              value={formData.contact_email}
               onChange={handleChange}
               className="rounded-md border-2 p-2 outline-none focus:border-[#C8A75A]"
               required
@@ -89,13 +88,15 @@ export default function Home() {
         <input
           name="subject"
           placeholder="The Subject..."
+          value={formData.subject}
           onChange={handleChange}
           className="rounded-md border-2 p-2 pb-20 outline-none focus:border-[#C8A75A]"
           required
         ></input>
         <textarea
-          name="description"
+          name="tip_description"
           placeholder="Your Tip..."
+          value={formData.tip_description}
           onChange={handleChange}
           className="rounded-md border-2 p-2 pb-20 outline-none focus:border-[#C8A75A]"
           required
