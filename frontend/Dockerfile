@@ -1,5 +1,7 @@
 FROM node:24-bookworm-slim
 
+RUN echo "Triggering Build: 001"
+
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
