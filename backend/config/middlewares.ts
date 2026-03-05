@@ -3,36 +3,9 @@ import { Core } from '@strapi/strapi';
 export default ({ env }: { env: any }) => [
   'strapi::logger',
   'strapi::errors',
-  {
-    name: 'strapi::security',
-    config: {
-      contentSecurityPolicy: {
-        useDefaults: true,
-        directives: {
-          'connect-src': ["'self'", 'https:'],
-          'img-src': [
-            "'self'",
-            'data:',
-            'blob:',
-            'market-assets.strapi.io', 
-            env('CF_R2_ENDPOINT'),
-            env('R2_DEV_DOMAIN'),     
-          ],
-          'media-src': [
-            "'self'",
-            'data:',
-            'blob:',
-            'market-assets.strapi.io',
-            env('CF_R2_ENDPOINT'),
-            env('R2_DEV_DOMAIN'),
-          ],
-          upgradeInsecureRequests: null,
-        },
-      },
-    },
-  },
-  {
-    name: 'strapi::cors',
+ 'strapi::security',
+ {
+  name: 'strapi::cors',
     config: {
       origin: [env('FRONTEND_URL'), 'http://localhost:3000'], 
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
