@@ -10,8 +10,8 @@ export default ({ env }) => ({
         params: {
           Bucket: env('CF_BUCKET_NAME'),
         },
-        baseUrl: 'https://pub-da902343a39f42e2b8a99078b67aa4b4.r2.dev',
       },
+      baseUrl: 'https://pub-da902343a39f42e2b8a99078b67aa4b4.r2.dev',
     },
   },
 });
