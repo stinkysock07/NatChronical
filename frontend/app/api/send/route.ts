@@ -2,36 +2,42 @@ import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
-    const resend = new Resend(process.env.RESEND_API_KEY);
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
     const { turnstileToken, ...body } = await req.json();
     const { name, contact_email, subject, tip_description } = body;
 
-    const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    const verifyRes = await fetch(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({
-            secret: process.env.TURNSTILE_SECRET_KEY || '',
-            response: turnstileToken,
+          secret: process.env.TURNSTILE_SECRET_KEY || '',
+          response: turnstileToken,
         }),
-        });
+      },
+    );
 
     const outcome = await verifyRes.json();
 
     if (!outcome.success) {
-      return NextResponse.json({ error: 'Failed security verification' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Failed security verification' },
+        { status: 400 },
+      );
     }
 
-    console.log("Email Payload Received:", body);
+    console.log('Email Payload Received:', body);
 
-    const hasValidEmail = contact_email && contact_email.includes('@')
+    const hasValidEmail = contact_email && contact_email.includes('@');
 
     const { data, error } = await resend.emails.send({
       from: 'Tips <onboarding@resend.dev>',
       to: ['sh33tghost@proton.me'], // Use your Resend login email first to be safe
       subject: `NEW TIP: ${subject || 'No Subject'}`,
-      ...hasValidEmail && { replyTo: contact_email }, // Set reply-to only if a valid email is provided
+      ...(hasValidEmail && { replyTo: contact_email }), // Set reply-to only if a valid email is provided
       html: `
         <h2>New Tip Submission</h2>
         <p><strong>From:</strong> ${name || 'Anonymous'}</p>
@@ -44,13 +50,16 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      console.error("Resend SDK Error:", error);
+      console.error('Resend SDK Error:', error);
       return NextResponse.json({ error }, { status: 400 });
     }
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Internal Server Error:", error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.error('Internal Server Error:', error);
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 },
+    );
   }
 }

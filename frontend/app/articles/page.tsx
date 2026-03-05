@@ -39,11 +39,15 @@ export default async function ArticlesPage({
                     </div>
                   )}
                   <div className="flex flex-col gap-1">
-                    <h3 className="text-lg font-semibold group-hover:text-blue-600 pl-2">
+                    <h3 className="pl-2 text-lg font-semibold group-hover:text-blue-600">
                       {article.Title}
                     </h3>
-                    <h4 className="text-sm text-gray-600 pl-2">{article.Author}</h4>
-                    <p className="text-sm text-gray-600 pl-2">Read full article →</p>
+                    <h4 className="pl-2 text-sm text-gray-600">
+                      {article.Author}
+                    </h4>
+                    <p className="pl-2 text-sm text-gray-600">
+                      Read full article →
+                    </p>
                   </div>
                 </Link>
               ))}
@@ -72,11 +76,15 @@ export default async function ArticlesPage({
                     </div>
                   )}
                   <div className="flex flex-col gap-1">
-                    <h3 className="text-lg font-semibold group-hover:text-blue-600 pl-2">
+                    <h3 className="pl-2 text-lg font-semibold group-hover:text-blue-600">
                       {article.Title}
                     </h3>
-                    <h4 className="text-sm text-gray-600 pl-2">{article.Author}</h4>
-                    <p className="text-sm text-gray-600 pl-2">Read full article →</p>
+                    <h4 className="pl-2 text-sm text-gray-600">
+                      {article.Author}
+                    </h4>
+                    <p className="pl-2 text-sm text-gray-600">
+                      Read full article →
+                    </p>
                   </div>
                 </Link>
               ))}
@@ -105,11 +113,15 @@ export default async function ArticlesPage({
                     </div>
                   )}
                   <div className="flex flex-col gap-1">
-                    <h3 className="text-lg font-semibold group-hover:text-blue-600 pl-2">
+                    <h3 className="pl-2 text-lg font-semibold group-hover:text-blue-600">
                       {article.Title}
                     </h3>
-                    <h4 className="text-sm text-gray-600 pl-2">{article.Author}</h4>
-                    <p className="text-sm text-gray-600 pl-2">Read full article →</p>
+                    <h4 className="pl-2 text-sm text-gray-600">
+                      {article.Author}
+                    </h4>
+                    <p className="pl-2 text-sm text-gray-600">
+                      Read full article →
+                    </p>
                   </div>
                 </Link>
               ))}

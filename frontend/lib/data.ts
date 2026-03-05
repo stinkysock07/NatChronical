@@ -67,11 +67,14 @@ export async function postTip(tipData: Omit<Tip, 'id' | 'date'>) {
       body: JSON.stringify({
         data: {
           // Map frontend names -> Strapi names
-          Name: tipData.name,           
-          Email: tipData.contact_email === 'Anonymous' ? undefined : tipData.contact_email,
-          subject: tipData.subject,      
-          Tip_Description: tipData.tip_description, 
-          date: new Date().toISOString(), 
+          Name: tipData.name,
+          Email:
+            tipData.contact_email === 'Anonymous'
+              ? undefined
+              : tipData.contact_email,
+          subject: tipData.subject,
+          Tip_Description: tipData.tip_description,
+          date: new Date().toISOString(),
         },
       }),
     });
