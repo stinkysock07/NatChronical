@@ -18,6 +18,11 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
           Bucket: process.env.CF_BUCKET_NAME,
         },
       },
+        actionOptions: {
+            upload: {
+                withFiles: true,
+            },
+        },
     },
   },
 });
