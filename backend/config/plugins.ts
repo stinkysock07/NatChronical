@@ -6,15 +6,15 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
       provider: 'aws-s3',
       providerOptions: {
         s3Options: {
-          accessKeyId: process.env.CF_EMAIL,
-          secretAccessKey: process.env.CF_GLOBAL_API_KEY,
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
           region: 'auto',
           bucket: process.env.CF_BUCKET_NAME,
           endpoint: process.env.CF_R2_ENDPOINT,
         },
         params: {
-        Bucket: process.env.CF_BUCKET_NAME,
-      },
+          Bucket: process.env.CF_BUCKET_NAME,
+        },
       },
     },
   },
