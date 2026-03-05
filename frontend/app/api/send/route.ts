@@ -5,8 +5,23 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const { turnstileToken, ...body } = await req.json();
     const { name, contact_email, subject, tip_description } = body;
+
+    const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+            secret: process.env.TURNSTILE_SECRET_KEY || '',
+            response: turnstileToken,
+        }),
+        });
+
+    const outcome = await verifyRes.json();
+
+    if (!outcome.success) {
+      return NextResponse.json({ error: 'Failed security verification' }, { status: 400 });
+    }
 
     console.log("Email Payload Received:", body);
 
