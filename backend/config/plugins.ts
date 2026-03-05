@@ -1,30 +1,17 @@
-import type { Core } from '@strapi/strapi';
-
-const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => ({
+// config/plugins.ts
+export default ({ env }) => ({
   upload: {
     config: {
-      provider: 'aws-s3',
+      provider: 'strapi-provider-upload-cloudflare-r2',
       providerOptions: {
-        s3Options: {
-          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-          region: 'auto',
-          bucket: process.env.CF_BUCKET_NAME,
-          endpoint: process.env.CF_R2_ENDPOINT,
-          signatureVersion: 's3v4',
-          s3ForcePathStyle: true,
-        },
+        accessKeyId: env('AWS_ACCESS_KEY_ID'),
+        secretAccessKey: env('AWS_SECRET_ACCESS_KEY'),
+        endpoint: env('CF_R2_ENDPOINT'),
         params: {
-          Bucket: process.env.CF_BUCKET_NAME,
+          Bucket: env('CF_BUCKET_NAME'),
         },
+        baseUrl: env('R2_DEV_DOMAIN'), 
       },
-        actionOptions: {
-            upload: {
-                withFiles: true,
-            },
-        },
     },
   },
 });
-
-export default config;
