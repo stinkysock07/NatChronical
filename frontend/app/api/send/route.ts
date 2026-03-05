@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 
     const { data, error } = await resend.emails.send({
       from: 'Tips <onboarding@resend.dev>',
-      to: ['sh33tghost@proton.me'], // Use your Resend login email first to be safe
+      to: [process.env.RESEND_EMAIL], // Use your Resend login email first to be safe
       subject: `NEW TIP: ${subject || 'No Subject'}`,
       ...hasValidEmail && { replyTo: contact_email }, // Set reply-to only if a valid email is provided
       html: `
