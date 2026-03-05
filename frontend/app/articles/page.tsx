@@ -17,7 +17,6 @@ export default async function ArticlesPage({
       </h1>
       <div className="grid grid-cols-3 gap-4">
         {articles
-          .filter((article) => article.Genre.toLocaleLowerCase() == genre)
           .map((article) => (
             <Link
               key={article.id}

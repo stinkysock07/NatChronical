@@ -25,21 +25,28 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try{
+    try {
       const tipToSubmit = {
         name: isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.name),
-        contact_email: isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.contact_email),
+        contact_email: isAnonymous
+          ? 'Anonymous'
+          : DOMPurify.sanitize(formData.contact_email),
         subject: DOMPurify.sanitize(formData.subject),
         description: DOMPurify.sanitize(formData.description),
-      }
+      };
 
-       await postTip(tipToSubmit);
+      await postTip(tipToSubmit);
 
-       setFormData({ name: '', contact_email: '', subject: '', description: '' });
-       setIsAnonymous(false)
+      setFormData({
+        name: '',
+        contact_email: '',
+        subject: '',
+        description: '',
+      });
+      setIsAnonymous(false);
     } catch (err) {
-    alert('There was an error sending your tip. Please try again.');
-  }
+      alert('There was an error sending your tip. Please try again.');
+    }
   };
 
   return (
@@ -79,11 +86,12 @@ export default function Home() {
             ></input>
           </>
         )}
-        <input name="subject"
-        placeholder="The Subject..."
-        onChange={handleChange}
-        className="rounded-md border-2 p-2 pb-20 outline-none focus:border-[#C8A75A]"
-        required
+        <input
+          name="subject"
+          placeholder="The Subject..."
+          onChange={handleChange}
+          className="rounded-md border-2 p-2 pb-20 outline-none focus:border-[#C8A75A]"
+          required
         ></input>
         <textarea
           name="description"

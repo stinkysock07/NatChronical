@@ -1,4 +1,3 @@
-
 export interface Article {
   id: number;
   Title: string;
@@ -20,20 +19,20 @@ export interface Tip {
   date: string;
 }
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ncn-backend.up.railway.app';
+const STRAPI_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'https://ncn-backend.up.railway.app';
 
 export async function fetchArticles(): Promise<Article[]> {
   try {
     const response = await fetch(`${STRAPI_URL}/api/articles?populate=*`, {
-  cache: 'no-store' // Prevents the browser from caching an empty result
-});
+      cache: 'no-store', // Prevents the browser from caching an empty result
+    });
 
     if (!response.ok) throw new Error('Failed to fetch articles from backend');
 
     const { data } = await response.json();
 
     if (!data || !Array.isArray(data)) return [];
-    
 
     return data.map((item: any) => {
       console.log(item);
@@ -57,28 +56,28 @@ export async function fetchArticles(): Promise<Article[]> {
   }
 }
 
-export async function postTip(tipData: Omit<Tip, 'id' | 'date'>){
-  try{
+export async function postTip(tipData: Omit<Tip, 'id' | 'date'>) {
+  try {
     const response = await fetch(`${STRAPI_URL}/api/tips`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         data: {
           name: tipData.name,
           contact_email: tipData.contact_email,
           subject: tipData.subject,
-          description: tipData.description
+          description: tipData.description,
         },
       }),
     });
-    if (!response.ok){
+    if (!response.ok) {
       const errorBody = await response.json();
-      console.error("Strapi error body:", errorBody);
-      throw new Error('Failed to post tip to backend')
+      console.error('Strapi error body:', errorBody);
+      throw new Error('Failed to post tip to backend');
     }
 
     return await response.json();
-  }catch (e) {
+  } catch (e) {
     console.error('Network error:', e);
     throw e;
   }

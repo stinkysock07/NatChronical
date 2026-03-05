@@ -27,26 +27,19 @@ export default function RootLayout({
   const [isOpen, setIsOpen] = useState(false);
   const isHomePage = pathName === '/';
 
-  // Inside your RootLayout function:
-const uniqueGenres = useMemo(() => {
-  // Add this log to see what is happening in your browser console
-  console.log("Generating genres from:", articles);
-  return Array.from(new Set(articles.map((a) => a.Genre))).filter(Boolean);
-}, [articles]);
-
   useEffect(() => {
     let isMounted = true;
     const getArticles = async () => {
       const data = await fetchArticles();
       if (isMounted) {
-        // Only call this once!
         setArticles(data);
       }
     };
     getArticles();
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, []);
-
 
   return (
     <html lang="en">
@@ -100,27 +93,20 @@ const uniqueGenres = useMemo(() => {
               </span>
             </button>
             {isOpen && (
-  <div className="absolute top-full left-1/2 z-50 w-48 -translate-x-1/2 rounded-md border border-[#C8A75A] bg-[#0B1F3A] shadow-lg">
-    <div className="py-2">
-      {uniqueGenres.length > 0 ? (
-        uniqueGenres.map((genre) => (
-          <Link
-            key={genre}
-            href={`/articles?genre=${genre.toLowerCase()}`}
-            className="block px-4 py-2 text-sm capitalize hover:bg-[#C8A75A] hover:text-[#0B1F3A]"
-            onClick={() => setIsOpen(false)}
-          >
-            {genre}
-          </Link>
-        ))
-      ) : (
-        <span className="block px-4 py-2 text-sm text-gray-400 italic text-center">
-          Loading...
-        </span>
-      )}
-    </div>
-  </div>
-)}
+              <div className="absolute top-full left-1/2 z-50 w-48 -translate-x-1/2 rounded-md border border-[#C8A75A] bg-[#0B1F3A] shadow-lg">
+                <div className="py-2">
+                  {Array.from(new Set(articles.map((article) => article.Genre))).map((genre) => (
+                    <Link
+                      key={genre}
+                      href={`/articles?genre=${genre}`}
+                      className="block px-4 py-2 text-sm hover:bg-gray-700"
+                    >
+                      {genre}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
           <Link
             href="/tip"
