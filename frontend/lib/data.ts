@@ -8,6 +8,7 @@ export interface Article {
   Content: string;
   Featured: Boolean;
   picture?: string;
+  Type: string;
 }
 
 export interface Tip {
@@ -35,7 +36,6 @@ export async function fetchArticles(): Promise<Article[]> {
     if (!data || !Array.isArray(data)) return [];
 
     return data.map((item: any) => {
-      console.log(item);
       return {
         id: item.id,
         Title: item.Title || 'Untitled',
@@ -46,11 +46,12 @@ export async function fetchArticles(): Promise<Article[]> {
         Content: item.Content,
         Featured: item.Featured,
         picture: item.picture?.url
-          ? (item.picture.url.startsWith('http') 
-          ? item.picture.url 
-          : `${STRAPI_URL}${item.picture.url}`)
-      : undefined,
-  };
+          ? item.picture.url.startsWith('http')
+            ? item.picture.url
+            : `${STRAPI_URL}${item.picture.url}`
+          : undefined,
+        Type: item.Type,
+      };
     });
   } catch (e) {
     console.error(e);
