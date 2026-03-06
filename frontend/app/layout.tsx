@@ -6,6 +6,7 @@ import localFont from 'next/font/local';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { fetchArticles, Article } from '../lib/data';
+import { X } from 'lucide-react';
 
 const neirizi = localFont({
   src: '../fonts/Neirizi Regular/Neirizi Regular.ttf',
@@ -118,15 +119,28 @@ export default function RootLayout({
           </Link>
         </nav>
         <main className="h-full gap-4 overflow-hidden">
-          <div className="custom-scrollbar col-span-1 overflow-y-auto p-4 justify-center items-center">
+          <div className="custom-scrollbar col-span-1 items-center justify-center overflow-y-auto p-4">
             {children}
             <footer className="mt-20 flex flex-col items-center justify-center gap-2 p-4 text-sm text-gray-600">
-              <nav className="flex gap-6 mb-2">
-                <Link href="/privacy" className="hover:text-[#C8A75A] transition-colors">
+              <nav className="mb-2 flex gap-6">
+                <Link
+                  href="/privacy"
+                  className="transition-colors hover:text-[#C8A75A]"
+                >
                   Privacy Policy
                 </Link>
-               <Link href="/terms" className="hover:text-[#C8A75A] transition-colors">
+                <Link
+                  href="/terms"
+                  className="transition-colors hover:text-[#C8A75A]"
+                >
                   Terms of Service
+                </Link>
+                <Link
+                  href="https://x.com/NCNewsOnX"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Follow us on X
                 </Link>
               </nav>
               <p className="text-center">
