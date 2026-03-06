@@ -8,23 +8,23 @@ export default async function ArticlesPage({
 }) {
   const { genre } = await searchParams;
   const articles = await fetchArticles();
-  const types = Array.from(new Set(articles.map(a => a.Type)));
+  const types = Array.from(new Set(articles.map((a) => a.Type)));
 
   return (
-    <section className="container mx-auto py-5 px-4">
+    <section className="container mx-auto px-4 py-5">
       <h1 className="pb-8 text-3xl font-bold">
         {genre ? `Our ${genre} Articles` : 'All Articles'}
       </h1>
       <nav className="sticky top-0 z-20 -mx-4 mb-8 border-b bg-white/80 p-4 backdrop-blur-md md:hidden">
-        <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-gray-400">
+        <p className="mb-2 text-[10px] font-black tracking-widest text-gray-400 uppercase">
           Jump to category
         </p>
-        <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+        <div className="no-scrollbar flex gap-3 overflow-x-auto pb-2">
           {types.map((type) => (
             <a
               key={type}
               href={`#${type.toUpperCase()}`}
-              className="uppercase whitespace-nowrap rounded-full border border-gray-200 bg-white px-4 py-1 text-sm font-medium shadow-sm active:scale-95 transition-transform"
+              className="rounded-full border border-gray-200 bg-white px-4 py-1 text-sm font-medium whitespace-nowrap uppercase shadow-sm transition-transform active:scale-95"
             >
               {type}
             </a>
@@ -36,9 +36,9 @@ export default async function ArticlesPage({
           <div
             key={type}
             id={type.toUpperCase()}
-            className="flex flex-col gap-4 scroll-mt-28"
+            className="flex scroll-mt-28 flex-col gap-4"
           >
-            <h2 className="text-3xl font-bold border-l-4 border-[#C8A75A] pl-4 uppercase">
+            <h2 className="border-l-4 border-[#C8A75A] pl-4 text-3xl font-bold uppercase">
               {type}
             </h2>
             <div className="flex flex-col gap-4">

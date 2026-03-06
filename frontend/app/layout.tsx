@@ -118,8 +118,23 @@ export default function RootLayout({
           </Link>
         </nav>
         <main className="h-full gap-4 overflow-hidden">
-          <div className="custom-scrollbar col-span-3 overflow-y-auto p-4">
+          <div className="custom-scrollbar col-span-1 overflow-y-auto p-4 justify-center items-center">
             {children}
+            <footer className="mt-20 flex flex-col items-center justify-center gap-2 p-4 text-sm text-gray-600">
+              <nav className="flex gap-6 mb-2">
+                <Link href="/privacy" className="hover:text-[#C8A75A] transition-colors">
+                  Privacy Policy
+                </Link>
+               <Link href="/terms" className="hover:text-[#C8A75A] transition-colors">
+                  Terms of Service
+                </Link>
+              </nav>
+              <p className="text-center">
+                &copy; {new Date().getFullYear()} NationalChronicle. <br></br>{' '}
+                All rights reserved.
+              </p>
+              <div className="flex gap-4"></div>
+            </footer>
           </div>
         </main>
       </body>

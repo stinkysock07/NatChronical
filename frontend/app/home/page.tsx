@@ -6,27 +6,26 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-10 p-10">
       <section className="flex flex-col gap-4">
-      <h1 className="text-3xl font-bold border-l-4 border-[#C8A75A] pl-4 uppercase">
-        Featured News
-      </h1>
-      <div className="grid grid-cols-1 gap-4">
-        {article
-          .filter((a) => a.Featured)
-          .map((article) => (
-            <HomeArticleCard key={article.id} article={article} />
-          ))}
-      </div>
+        <h1 className="border-l-4 border-[#C8A75A] pl-4 text-3xl font-bold uppercase">
+          Featured News
+        </h1>
+        <div className="grid grid-cols-1 gap-4">
+          {article
+            .filter((a) => a.Featured)
+            .map((article) => (
+              <HomeArticleCard key={article.id} article={article} />
+            ))}
+        </div>
       </section>
       <section className="flex flex-col gap-4">
-      <h1 className="text-3xl font-bold border-l-4 border-[#C8A75A] pl-4 uppercase">
-        Latest News
+        <h1 className="border-l-4 border-[#C8A75A] pl-4 text-3xl font-bold uppercase">
+          Latest News
         </h1>
-      <div className="grid grid-cols-1 gap-4">
-        {article
-          .map((article) => (
+        <div className="grid grid-cols-1 gap-4">
+          {article.map((article) => (
             <HomeArticleCard key={article.id} article={article} />
           ))}
-      </div>
+        </div>
       </section>
     </div>
   );

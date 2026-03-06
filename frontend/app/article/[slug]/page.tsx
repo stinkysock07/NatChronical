@@ -23,9 +23,9 @@ export default async function ArticlePage({ params }: PageProps) {
 
   return (
     <div className="p-6">
-      <div className="mb-4 flex-col gap-4 border-b p-2 pb-4">
+      <div className="mb-4 flex-col gap-4 border-b-2 border-[#C8A75A] p-2 pb-4">
         {article.picture && (
-          <div className="relative h-100 w-full overflow-hidden bg-slate-900 md:h-75">
+          <div className="relative h-100 w-full overflow-hidden md:h-75">
             <Image
               src={article.picture}
               alt={article.Title}
@@ -44,7 +44,7 @@ export default async function ArticlePage({ params }: PageProps) {
           </h2>
         </div>
       </div>
-      <div className="font-public mt-4 leading-relaxed text-gray-800 text-center">
+      <div className="font-public mt-4 text-center leading-relaxed text-gray-800">
         {article.Content}
       </div>
     </div>
