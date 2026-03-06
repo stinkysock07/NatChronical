@@ -27,10 +27,13 @@ export async function POST(req: Request) {
 
     if (!outcome.success) {
       console.error('Turnstile Error Codes:', outcome['error-codes']); // Logs why it failed
-  return NextResponse.json(
-    { error: 'Failed security verification', details: outcome['error-codes'] },
-    { status: 400 },
-  );
+      return NextResponse.json(
+        {
+          error: 'Failed security verification',
+          details: outcome['error-codes'],
+        },
+        { status: 400 },
+      );
     }
 
     console.log('Email Payload Received:', body);
@@ -39,9 +42,9 @@ export async function POST(req: Request) {
 
     const { data, error } = await resend.emails.send({
       from: 'Tips <onboarding@resend.dev>',
-      to: ['sh33tghost@proton.me'], // Use your Resend login email first to be safe
+      to: ['sh33tghost@proton.me'],
       subject: `NEW TIP: ${subject || 'No Subject'}`,
-      ...(hasValidEmail && { replyTo: contact_email }), // Set reply-to only if a valid email is provided
+      ...(hasValidEmail && { replyTo: contact_email }),
       html: `
         <h2>New Tip Submission</h2>
         <p><strong>From:</strong> ${name || 'Anonymous'}</p>

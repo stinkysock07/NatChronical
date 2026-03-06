@@ -1,101 +1,20 @@
 'use client';
-import { useState } from 'react';
-import { postTip, Tip } from '../../lib/data';
-import DOMPurify from 'dompurify';
 import { Turnstile } from '@marsidev/react-turnstile';
+import { useTipSubmission } from '../hooks/useTipSubmission';
 
 export default function Home() {
-  const [isAnonymous, setIsAnonymous] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    contact_email: '',
-    subject: '',
-    tip_description: '',
-  });
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!turnstileToken) {
-      alert('Please complete the security check.');
-      return;
-    }
-    setLoading(true);
-
-    const tipToSubmit = {
-      name: isAnonymous ? 'Anonymous' : DOMPurify.sanitize(formData.name),
-      contact_email: isAnonymous
-        ? 'Anonymous'
-        : DOMPurify.sanitize(formData.contact_email),
-      subject: DOMPurify.sanitize(formData.subject),
-      tip_description: DOMPurify.sanitize(formData.tip_description),
-      createdAt: new Date().toISOString(),
-    };
-
-    try {
-      await postTip(tipToSubmit);
-
-      const emailRes = await fetch('/api/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(tipToSubmit),
-      });
-
-      if (!emailRes.ok) throw new Error('Email failed to send');
-
-      try {
-        // Pass the token to your API
-        const emailRes = await fetch('/api/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...tipToSubmit, turnstileToken }),
-        });
-
-        if (!emailRes.ok) {
-          const errorBody = await emailRes.json();
-          throw new Error('Email failed to send');
-        }
-        setIsSuccess(true);
-        setFormData({
-          name: '',
-          contact_email: '',
-          subject: '',
-          tip_description: '',
-        });
-        setIsAnonymous(false);
-        setTurnstileToken(null); // Reset token for next use
-        alert('Tip submitted successfully!');
-      } catch (err) {
-        alert('There was an error sending your tip. Please try again.');
-        setLoading(false);
-        return;
-      }
-
-      setIsSuccess(true);
-      setFormData({
-        name: '',
-        contact_email: '',
-        subject: '',
-        tip_description: '',
-      });
-      setIsAnonymous(false);
-    } catch (err) {
-      alert('There was an error sending your tip. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    loading,
+    isAnonymous,
+    setIsAnonymous,
+    setTurnstileToken,
+  } = useTipSubmission();
 
   return (
-    <div className="grid grid-cols-2 max-w-150">
+    <div className="grid max-w-150 grid-cols-2">
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <div className="mb-2 flex items-center gap-2 rounded-md border border-gray-200 bg-gray-50 p-3">
           <input
@@ -151,16 +70,16 @@ export default function Home() {
         ></input>
         <div className="flex w-full justify-center">
           {typeof process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY === 'string' ? (
-          <Turnstile
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-            onSuccess={(token) => setTurnstileToken(token)}
-            options={{
-              theme: 'light',
-              size: 'normal',
-            }}
-          />
+            <Turnstile
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+              onSuccess={(token) => setTurnstileToken(token)}
+              options={{
+                theme: 'light',
+                size: 'normal',
+              }}
+            />
           ) : (
-            <div className="text-xs text-gray-400 p-4 border border-dashed rounded">
+            <div className="rounded border border-dashed p-4 text-xs text-gray-400">
               Loading security check...
             </div>
           )}

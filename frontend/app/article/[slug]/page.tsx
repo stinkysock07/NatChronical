@@ -1,4 +1,4 @@
-import { fetchArticles, Article } from '../../../lib/data';
+import { fetchArticles } from '../../../lib/data';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 
@@ -21,7 +21,6 @@ export default async function ArticlePage({ params }: PageProps) {
     notFound();
   }
 
-  // 4. Render the found article data
   return (
     <div className="p-6">
       <div className="mb-4 flex-col gap-4 border-b p-2 pb-4">

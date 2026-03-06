@@ -8,7 +8,7 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a; 
+    --background: #0a0a0a;
     --foreground: #f0f0f0;
   }
 }
@@ -19,5 +19,7 @@ body {
   font-size: var(--base-font-size);
   font-family: var(--font-public), sans-serif;
   /* Smooth transition for theme switching */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }

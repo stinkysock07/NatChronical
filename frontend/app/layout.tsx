@@ -4,7 +4,7 @@ import './globals.css';
 import { usePathname } from 'next/navigation';
 import localFont from 'next/font/local';
 import Image from 'next/image';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchArticles, Article } from '../lib/data';
 
 const neirizi = localFont({
