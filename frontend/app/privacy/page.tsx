@@ -75,16 +75,6 @@ export default function PrivacyPage() {
             will take steps to remove that information.
           </p>
         </section>
-        <br />
-        <section className="mt-12 border-l-4 border-[#C8A75A] bg-gray-50 p-6">
-          <h3 className="mt-0">Contact Us</h3>
-          <p>
-            If you have any questions regarding this Privacy Policy, please
-            contact us at:
-            <br />
-            <span className="font-bold">hello@nationalchronicle.com</span>
-          </p>
-        </section>
       </article>
     </main>
   );

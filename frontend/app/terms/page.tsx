@@ -72,21 +72,6 @@ export default function TermsPage() {
             exclusive jurisdiction of the courts in that location.
           </p>
         </section>
-        <br />
-        <section className="mt-12 border-l-4 border-[#C8A75A] bg-gray-50 p-6">
-          <h3 className="mt-0">Contact Information</h3>
-          <p>
-            If you have any questions about these Terms, please reach out to us
-            via our
-            <a
-              href="/contact"
-              className="ml-1 font-bold text-[#0B1F3A] hover:underline"
-            >
-              Contact Page
-            </a>
-            .
-          </p>
-        </section>
       </article>
     </main>
   );
