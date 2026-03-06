@@ -28,7 +28,7 @@
       "type": "string"
     },
     "Date_pub": {
-      "type": "datetime"
+      "type": "date"
     },
     "slug": {
       "type": "uid"

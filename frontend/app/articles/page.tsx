@@ -33,12 +33,12 @@ export default async function ArticlesPage({
       </nav>
       <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-3">
         {types.map((type) => (
-          <div 
-            key={type} 
-            id={type.toUpperCase()} 
-            className="flex flex-col gap-4 scroll-mt-28" 
+          <div
+            key={type}
+            id={type.toUpperCase()}
+            className="flex flex-col gap-4 scroll-mt-28"
           >
-            <h2 className="border-b-2 border-gray-100 pb-2 text-xl font-bold tracking-wider text-gray-800 uppercase">
+            <h2 className="text-3xl font-bold border-l-4 border-[#C8A75A] pl-4 uppercase">
               {type}
             </h2>
             <div className="flex flex-col gap-4">

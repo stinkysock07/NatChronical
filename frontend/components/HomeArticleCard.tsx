@@ -10,12 +10,12 @@ return (
               className="group flex items-center overflow-hidden rounded-xl border transition-all hover:border-[#C8A75A] hover:bg-gray-50"
             >
               {article.picture && (
-                <div className="relative h-24 w-28 shrink-0 overflow-hidden">
+                <div className="relative h-30 w-30 shrink-0 overflow-hidden">
                   <Image
                     src={article.picture}
                     alt={article.Title}
                     fill
-                    sizes="120px"
+                    sizes="224px"
                     className="object-cover"
                   />
                 </div>
@@ -24,6 +24,7 @@ return (
                 <h3 className="pl-2 text-lg font-semibold group-hover:text-blue-600">
                   {article.Title}
                 </h3>
+                 <h4 className="pl-2 text-sm text-gray-600">{article.Date_pub}</h4>
                 <h4 className="pl-2 text-sm text-gray-600">{article.Author}</h4>
                 <p className="pl-2 text-sm text-gray-600">
                   Read full article →

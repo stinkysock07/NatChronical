@@ -483,7 +483,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Date_pub: Schema.Attribute.DateTime;
+    Date_pub: Schema.Attribute.Date;
     Featured: Schema.Attribute.Boolean;
     Genre: Schema.Attribute.Enumeration<
       ['Politics', 'Economics', 'Science', 'Sports', 'Culture']
