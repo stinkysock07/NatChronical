@@ -14,7 +14,7 @@ export default function Home() {
   } = useTipSubmission();
 
   return (
-    <div className="grid max-w-150 grid-cols-1 md:grid-cols-2">
+    <div className="grid max-w-150 grid-cols-1 md:grid-cols-1">
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <div className="mb-2 flex items-center gap-2 rounded-md border border-gray-200 bg-gray-50 p-3">
           <input
