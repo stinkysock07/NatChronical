@@ -97,7 +97,7 @@ export default function RootLayout({
               <div className="absolute top-full left-1/2 z-50 w-48 -translate-x-1/2 rounded-md border border-[#C8A75A] bg-[#0B1F3A] shadow-lg">
                 <div className="py-2">
                   {Array.from(
-                    new Set(articles.map((article) => article.Genre)),
+                    new Set(articles.map((article) => article.Genre?.trim()).filter(Boolean)),
                   ).map((genre) => (
                     <Link
                       key={genre}

@@ -7,8 +7,15 @@ export default async function ArticlesPage({
   searchParams: Promise<{ genre?: string }>;
 }) {
   const { genre } = await searchParams;
-  const articles = await fetchArticles();
-  const types = Array.from(new Set(articles.map((a) => a.Type)));
+  let articles = await fetchArticles();
+
+  if (genre) {
+    articles = articles.filter(
+      (a) => a.Genre?.toLowerCase() === genre.toLowerCase()
+    );
+  }
+  
+  const types = Array.from(new Set(articles.map((a) => a.Type).filter(Boolean)));
 
   return (
     <section className="container mx-auto px-4 py-5">
