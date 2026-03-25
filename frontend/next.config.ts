@@ -8,7 +8,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'ncn-backend.up.railway.app',
+        hostname: 'api.natchronicle.com',
       },
     ],
   },
