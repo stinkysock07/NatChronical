@@ -6,12 +6,6 @@
   --base-font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #f0f0f0;
-  }
-}
 
 body {
   background: var(--background);
