@@ -21,7 +21,7 @@ export interface Tip {
 }
 
 const STRAPI_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'https://api.natchronicle.com';
+  process.env.NEXT_PUBLIC_API_URL || 'https://ncn-backend.up.railway.app';
 
 export async function fetchArticles(): Promise<Article[]> {
   try {
