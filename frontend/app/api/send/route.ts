@@ -41,8 +41,8 @@ export async function POST(req: Request) {
     const hasValidEmail = contact_email && contact_email.includes('@');
 
     const { data, error } = await resend.emails.send({
-      from: 'Tips <onboarding@resend.dev>',
-      to: ['sh33tghost@proton.me'],
+      from: process.env.RESEND_FROM_EMAIL || 'Tips <onboarding@resend.dev>',
+      to: [process.env.RESEND_TO_EMAIL || 'sh33tghost@proton.me'],
       subject: `NEW TIP: ${subject || 'No Subject'}`,
       ...(hasValidEmail && { replyTo: contact_email }),
       html: `
