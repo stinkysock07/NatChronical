@@ -3,31 +3,31 @@ import { MetadataRoute } from 'next'
 
 const staticRoutes: MetadataRoute.Sitemap = [
     {
-        url: 'https://nationalchronicle.com/',
+        url: 'https://www.natchronicle.com/',
         lastModified: new Date().toISOString(),
         changeFrequency: 'daily',
         priority: 1.0,
     },
     {
-        url: 'https://nationalchronicle.com/about',
+        url: 'https://www.natchronicle.com/about',
         lastModified: new Date().toISOString(),
         changeFrequency: 'monthly',
         priority: 0.5,
     },
     {
-        url: 'https://nationalchronicle.com/privacy',
+        url: 'https://www.natchronicle.com/privacy',
         lastModified: new Date().toISOString(),
         changeFrequency: 'monthly',
         priority: 0.5,
     },
     {
-        url: 'https://nationalchronicle.com/terms',
+        url: 'https://www.natchronicle.com/terms',
         lastModified: new Date().toISOString(),
         changeFrequency: 'monthly',
         priority: 0.5,
     },
     {
-        url: 'https://nationalchronicle.com/tip',
+        url: 'https://www.natchronicle.com/tip',
         lastModified: new Date().toISOString(),
         changeFrequency: 'monthly',
         priority: 0.5,
@@ -37,7 +37,7 @@ const staticRoutes: MetadataRoute.Sitemap = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const articles = await fetchArticles();
     const articleUrls: MetadataRoute.Sitemap = articles.map((article) => ({
-        url: `https://nationalchronicle.com/${article.slug}`,
+        url: `https://www.natchronicle.com/${article.slug}`,
         lastModified: new Date().toISOString(),
         changeFrequency: 'daily',
         priority: 0.8,
