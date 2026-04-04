@@ -1,5 +1,6 @@
 import { fetchArticles } from '../../lib/data';
 import { HomeArticleCard } from '@/components/HomeArticleCard';
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const article = await fetchArticles();
