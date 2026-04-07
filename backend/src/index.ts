@@ -19,13 +19,10 @@ export default {
             }
 
             const token = authHeader.replace('Bearer ', '').trim();
-            const validToken = process.env.TWEETS_API_KEY;
+            const validToken = process.env.TWEETS_API_KEY?.trim();
 
             console.log('Token received length:', token.length);
             console.log('Token expected length:', validToken?.length);
-            console.log('Token received:', token);
-            console.log('Token expected:', validToken);
-
             if (!validToken || token !== validToken) {
               ctx.status = 401;
               ctx.body = { error: 'Missing or invalid credentials' };
