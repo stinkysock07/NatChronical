@@ -1,20 +1,44 @@
-// import type { Core } from '@strapi/strapi';
+import type { Core } from '@strapi/strapi';
 
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register(/* { strapi }: { strapi: Core.Strapi } */) { },
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+  bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    strapi.server.routes([
+      {
+        method: 'GET',
+        path: '/api/tweets',
+        handler: async (ctx: any) => {
+          try {
+            // Validate API token
+            const authHeader = ctx.request.headers.authorization;
+            if (!authHeader || !authHeader.startsWith('Bearer ')) {
+              ctx.status = 401;
+              ctx.body = { error: 'Missing or invalid credentials' };
+              return;
+            }
+
+            const token = authHeader.replace('Bearer ', '').trim();
+            const validToken = process.env.TWEETS_API_KEY?.trim();
+
+            console.log('Token received length:', token.length);
+            console.log('Token expected length:', validToken?.length);
+            if (!validToken || token !== validToken) {
+              ctx.status = 401;
+              ctx.body = { error: 'Missing or invalid credentials' };
+              return;
+            }
+
+            const response = await strapi.service('api::tweets.tweets').getTweets();
+            ctx.body = { data: response.data };
+          } catch (error: any) {
+            console.error('Tweets error:', error);
+            ctx.status = 500;
+            ctx.body = { error: error.message };
+          }
+        },
+        config: { auth: false }
+      }
+    ]);
+  },
 };

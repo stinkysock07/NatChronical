@@ -1,12 +1,11 @@
 'use client';
-import Link from 'next/link';
 import './globals.css';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import localFont from 'next/font/local';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { fetchArticles, Article } from '../lib/data';
-import { X } from 'lucide-react';
 
 const neirizi = localFont({
   src: '../fonts/Neirizi Regular/Neirizi Regular.ttf',

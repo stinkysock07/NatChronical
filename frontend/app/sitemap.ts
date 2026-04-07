@@ -1,6 +1,8 @@
 import { fetchArticles } from "@/lib/data";
 import { MetadataRoute } from 'next'
 
+export const dynamic = 'force-dynamic';
+
 const staticRoutes: MetadataRoute.Sitemap = [
     {
         url: 'https://www.natchronicle.com/',
