@@ -1,4 +1,6 @@
 'use client';
+//@ts-expect-error
+import './globals.css';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import localFont from 'next/font/local';
@@ -43,12 +45,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>The National Chronicle</title>
-        <meta name="description" content="View the latest news and articles from The National Chronicle"/>
-        <meta name="keywords" content="news, articles, national chronicle, journalism, current events"/>
-        <meta property="og:title" content="The National Chronicle"/>
-        <meta property="og:description" content="View the latest news and articles from The National Chronicle"/>
+        <meta name="description" content="View the latest news and articles from The National Chronicle" />
+        <meta name="keywords" content="news, articles, national chronicle, journalism, current events" />
+        <meta property="og:title" content="The National Chronicle" />
+        <meta property="og:description" content="View the latest news and articles from The National Chronicle" />
       </head>
       <body
         className={`${neirizi.variable} ${publicSans.variable} antialiased`}
