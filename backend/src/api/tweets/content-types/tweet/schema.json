@@ -19,9 +19,6 @@
     "text": {
       "type": "text"
     },
-    "created_at": {
-      "type": "datetime"
-    },
     "url": {
       "type": "string"
     }

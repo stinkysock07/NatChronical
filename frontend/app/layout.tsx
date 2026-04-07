@@ -97,7 +97,7 @@ export default function RootLayout({
               <span
                 className={`transition-transform ${isOpen ? 'rotate-180' : ''}`}
               >
-                ▾
+                ▴
               </span>
             </button>
             {isOpen && (

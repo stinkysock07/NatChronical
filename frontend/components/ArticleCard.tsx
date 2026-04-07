@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Article } from '@/lib/data';
+import { formatDateString } from '@/lib/dateUtils';
 
 export function ArticleCard({ article }: { article: Article }) {
   return (
@@ -23,7 +24,7 @@ export function ArticleCard({ article }: { article: Article }) {
         <h3 className="pl-2 text-lg font-semibold group-hover:text-blue-600">
           {article.Title}
         </h3>
-        <h4 className="pl-2 text-sm text-gray-600">{article.Date_pub}</h4>
+        <h4 className="pl-2 text-sm text-gray-600">{formatDateString(article.Date_pub)}</h4>
         <h4 className="pl-2 text-sm text-gray-600">{article.Author}</h4>
         <p className="pl-2 text-sm text-gray-600">Read full article →</p>
       </div>
