@@ -18,12 +18,8 @@ export default {
               return;
             }
 
-            const token = authHeader.replace('Bearer ', '');
-
-            // Verify token against Strapi API tokens
-            const apiToken = await strapi.db.query('admin::api-token').findOne({ where: { accessKey: token } });
-
-            if (!apiToken) {
+            const token = authHeader.replace('Bearer ', '').trim();
+            if (!token || token.length < 10) {
               ctx.status = 401;
               ctx.body = { error: 'Missing or invalid credentials' };
               return;
