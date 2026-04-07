@@ -17,8 +17,7 @@ export default {
             ctx.status = 500;
             ctx.body = { error: error.message };
           }
-        },
-        config: { auth: false }
+        }
       }
     ]);
   },
