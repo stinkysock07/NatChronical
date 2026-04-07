@@ -15,7 +15,6 @@ export default {
                     ctx.body = { error: error.message };
                 }
             },
-            config: { auth: false }
         }
     ]
 } as unknown as Core.Route;
