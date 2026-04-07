@@ -18,6 +18,7 @@ export default {
             ctx.body = { error: error.message };
           }
         },
+        config: {}
       }
     ]);
   },
