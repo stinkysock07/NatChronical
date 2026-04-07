@@ -17,4 +17,4 @@ export default {
             }
         }
     ]
-};
+} as unknown as Core.Route;
