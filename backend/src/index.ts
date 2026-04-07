@@ -19,11 +19,12 @@ export default {
             }
 
             const token = authHeader.replace('Bearer ', '').trim();
-
             const validToken = process.env.TWEETS_API_KEY;
 
-            console.log('Token received:', token.substring(0, 20) + '...');
-            console.log('Token expected:', validToken?.substring(0, 20) + '...');
+            console.log('Token received length:', token.length);
+            console.log('Token expected length:', validToken?.length);
+            console.log('Token received:', token);
+            console.log('Token expected:', validToken);
 
             if (!validToken || token !== validToken) {
               ctx.status = 401;
