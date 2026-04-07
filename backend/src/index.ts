@@ -10,6 +10,25 @@ export default {
         path: '/api/tweets',
         handler: async (ctx: any) => {
           try {
+            // Validate API token
+            const authHeader = ctx.request.headers.authorization;
+            if (!authHeader || !authHeader.startsWith('Bearer ')) {
+              ctx.status = 401;
+              ctx.body = { error: 'Missing or invalid credentials' };
+              return;
+            }
+
+            const token = authHeader.replace('Bearer ', '');
+
+            // Verify token against Strapi API tokens
+            const apiToken = await strapi.db.query('admin::api-token').findOne({ where: { accessKey: token } });
+
+            if (!apiToken) {
+              ctx.status = 401;
+              ctx.body = { error: 'Missing or invalid credentials' };
+              return;
+            }
+
             const response = await strapi.service('api::tweets.tweets').getTweets();
             ctx.body = { data: response.data };
           } catch (error: any) {
@@ -18,7 +37,7 @@ export default {
             ctx.body = { error: error.message };
           }
         },
-        config: {}
+        config: { auth: false }
       }
     ]);
   },
