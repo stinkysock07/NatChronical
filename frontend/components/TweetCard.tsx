@@ -1,4 +1,4 @@
-import Link  from 'next/link';
+import Link from 'next/link';
 import { Tweet } from '../lib/data';
 
 export function TweetCard({ tweet }: { tweet: Tweet }) {
@@ -9,9 +9,9 @@ export function TweetCard({ tweet }: { tweet: Tweet }) {
         year: 'numeric',
     });
     return (
-        <Link href={tweet.url || '#'} target="_blank" className="group flex flex-col rounded-xl border border-gray-900 p-3 transition-all hover:border-[#C8A75A] hover:bg-gray-50">
-            <p className="text-sm text-gray-600">{formattedDate}</p>
-            <p>{tweet.text}</p>
+        <Link href={tweet.url || '#'} target="_blank" className="group flex flex-col rounded-md border border-gray-900 p-2 transition-all hover:border-[#C8A75A] hover:bg-gray-50">
+            <p className="text-xs text-gray-600 leading-tight">{formattedDate}</p>
+            <p className="text-sm">{tweet.text}</p>
         </Link>
     );
 }
