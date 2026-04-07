@@ -105,20 +105,24 @@ export async function postTip(tipData: Omit<Tip, 'id' | 'date'>) {
   }
 }
 
-export const fetchTweets = async() => {
+export const fetchTweets = async () => {
   const STRAPI_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ncn-backend.up.railway.app';
+  const apiToken = process.env.NEXT_PUBLIC_TWEETS_API_KEY;
 
   try {
     const response = await fetch(`${STRAPI_URL}/api/tweets`, {
-      cache: 'no-store', // Prevents the browser from caching an empty result
+      cache: 'no-store',
+      headers: {
+        'Authorization': `Bearer ${apiToken}`
+      }
     });
 
-     if (!response.ok) {
+    if (!response.ok) {
       const error = await response.text();
       console.error('Tweets fetch failed:', response.status, error);
       return [];
     }
-    
+
     const json = await response.json();
     const { data } = json;
 
