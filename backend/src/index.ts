@@ -22,6 +22,9 @@ export default {
 
             const validToken = process.env.TWEETS_API_KEY;
 
+            console.log('Token received:', token.substring(0, 20) + '...');
+            console.log('Token expected:', validToken?.substring(0, 20) + '...');
+
             if (!validToken || token !== validToken) {
               ctx.status = 401;
               ctx.body = { error: 'Missing or invalid credentials' };
