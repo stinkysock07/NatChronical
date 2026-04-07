@@ -12,5 +12,18 @@
     "draftAndPublish": false
   },
   "pluginOptions": {},
-  "attributes": {}
+  "attributes": {
+    "tweet_id": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+    "created_at": {
+      "type": "datetime"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
 }
