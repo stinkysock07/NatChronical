@@ -6,7 +6,6 @@
   --base-font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
 }
 
-
 body {
   background: var(--background);
   color: var(--foreground);

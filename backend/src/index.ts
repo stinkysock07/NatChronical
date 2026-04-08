@@ -7,10 +7,36 @@ export default {
     strapi.server.routes([
       {
         method: 'GET',
+        path: '/api/articles-preview/:documentId',
+        handler: async (ctx: any) => {
+          try {
+            const { documentId } = ctx.params;
+
+           const article = await strapi.documents('api::article.article').findOne({ 
+            documentId,
+            populate: '*'
+          });
+            
+            if (!article) {
+              ctx.status = 404;
+              ctx.body = { error: 'Article not found' };
+              return;
+            }
+            
+            ctx.body = { data: article };
+          } catch (error: any) {
+            console.error('Preview error:', error);
+            ctx.status = 500;
+            ctx.body = { error: error.message };
+          }
+        },
+        config: { auth: false }
+      },
+      {
+        method: 'GET',
         path: '/api/tweets',
         handler: async (ctx: any) => {
           try {
-            // Validate API token
             const authHeader = ctx.request.headers.authorization;
             if (!authHeader || !authHeader.startsWith('Bearer ')) {
               ctx.status = 401;

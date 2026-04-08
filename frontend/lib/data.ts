@@ -1,5 +1,3 @@
-import { json, text } from "stream/consumers";
-
 export interface Article {
   id: number;
   Title: string;
@@ -7,7 +5,7 @@ export interface Article {
   Author: string;
   Date_pub: string;
   slug: string;
-  Content: string;
+  Content: any[];
   Featured: Boolean;
   picture?: string;
   Type: string;
@@ -30,7 +28,8 @@ export interface Tweet {
   url?: string | null;
 }
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ncn-backend.up.railway.app';
+const STRAPI_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'https://ncn-backend.up.railway.app';
 
 export async function fetchArticles(): Promise<Article[]> {
   try {
@@ -106,15 +105,16 @@ export async function postTip(tipData: Omit<Tip, 'id' | 'date'>) {
 }
 
 export const fetchTweets = async () => {
-  const STRAPI_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ncn-backend.up.railway.app';
+  const STRAPI_URL =
+    process.env.NEXT_PUBLIC_API_URL || 'https://ncn-backend.up.railway.app';
   const apiToken = process.env.NEXT_PUBLIC_TWEETS_API_KEY;
 
   try {
     const response = await fetch(`${STRAPI_URL}/api/tweets`, {
       cache: 'no-store',
       headers: {
-        'Authorization': `Bearer ${apiToken}`
-      }
+        Authorization: `Bearer ${apiToken}`,
+      },
     });
 
     if (!response.ok) {
@@ -145,5 +145,4 @@ export const fetchTweets = async () => {
     console.error('Network error:', e);
     return [];
   }
-}
-
+};

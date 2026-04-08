@@ -8,8 +8,8 @@ export default async function Home() {
   const article = await fetchArticles();
   const tweets = await fetchTweets();
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 p-3">
-      <div className="lg:col-span-2 flex flex-col gap-3">
+    <div className="grid grid-cols-1 gap-3 p-3 lg:grid-cols-3">
+      <div className="flex flex-col gap-3 lg:col-span-2">
         <section className="flex flex-col gap-2">
           <h1 className="border-l-4 border-[#C8A75A] pl-4 text-2xl font-bold uppercase">
             Featured News
@@ -33,13 +33,16 @@ export default async function Home() {
           </div>
         </section>
       </div>
-      <section className="hidden lg:flex flex-col gap-2">
+      <section className="hidden flex-col gap-2 lg:flex">
         <h1 className="border-l-4 border-[#C8A75A] pl-4 text-2xl font-bold uppercase">
           Latest Tweets
         </h1>
         <div className="grid grid-cols-1 gap-2">
           {tweets.map((tweet) => (
-            <TweetCard key={tweet.tweet_id} tweet={{ ...tweet, id: tweet.tweet_id }} />
+            <TweetCard
+              key={tweet.tweet_id}
+              tweet={{ ...tweet, id: tweet.tweet_id }}
+            />
           ))}
         </div>
       </section>

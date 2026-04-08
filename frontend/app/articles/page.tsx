@@ -11,11 +11,13 @@ export default async function ArticlesPage({
 
   if (genre) {
     articles = articles.filter(
-      (a) => a.Genre?.toLowerCase() === genre.toLowerCase()
+      (a) => a.Genre?.toLowerCase() === genre.toLowerCase(),
     );
   }
-  
-  const types = Array.from(new Set(articles.map((a) => a.Type).filter(Boolean)));
+
+  const types = Array.from(
+    new Set(articles.map((a) => a.Type).filter(Boolean)),
+  );
 
   return (
     <section className="container mx-auto px-4 py-5">
