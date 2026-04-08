@@ -547,7 +547,6 @@ export interface ApiTweetsTweet extends Struct.CollectionTypeSchema {
     timestamps: true;
   };
   attributes: {
-    created_at: Schema.Attribute.DateTime;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
