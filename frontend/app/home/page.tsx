@@ -33,7 +33,7 @@ export default async function Home() {
           </div>
         </section>
       </div>
-      <section className="flex flex-col gap-2">
+      <section className="hidden lg:flex flex-col gap-2">
         <h1 className="border-l-4 border-[#C8A75A] pl-4 text-2xl font-bold uppercase">
           Latest Tweets
         </h1>
