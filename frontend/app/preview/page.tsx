@@ -1,5 +1,6 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+export const dynamic = 'force-dynamic';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { formatDateString } from '@/lib/dateUtils';
 import { useSearchParams } from 'next/navigation';
