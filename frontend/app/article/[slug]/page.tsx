@@ -2,6 +2,7 @@ import { fetchArticles } from '../../../lib/data';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { formatDateString } from '@/lib/dateUtils';
+import RichTextRenderer from '@/components/RichTextRenderer';
 
 // Define the shape of the params (Next.js 15 requires awaiting params)
 interface PageProps {
@@ -47,7 +48,7 @@ export default async function ArticlePage({ params }: PageProps) {
         </div>
       </div>
       <div className="font-public mt-4 pl-2 leading-relaxed text-gray-800">
-        {article.Content}
+        <RichTextRenderer blocks={article.Content} />
       </div>
     </div>
   );

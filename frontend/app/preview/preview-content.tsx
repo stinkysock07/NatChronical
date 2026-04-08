@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { formatDateString } from '@/lib/dateUtils';
 import { useSearchParams } from 'next/navigation';
+import RichTextRenderer from '@/components/RichTextRenderer';
 
 
 export default function PreviewPage() {
@@ -58,7 +59,7 @@ export default function PreviewPage() {
                         </h2>
                     </div>
                 </div><div className="font-public mt-4 leading-relaxed text-gray-800 pl-2">
-                        {article.Content}
+                        <RichTextRenderer blocks={article.Content} />
                     </div></>
             )}
         </div>

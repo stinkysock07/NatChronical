@@ -27,14 +27,22 @@
     "Author": {
       "type": "string"
     },
+    "Content": {
+      "type": "blocks"
+    },
     "Date_pub": {
       "type": "date"
     },
     "slug": {
       "type": "uid"
     },
-    "Content": {
-      "type": "text"
+    "Type": {
+      "type": "enumeration",
+      "enum": [
+        "opinion",
+        "analysis",
+        "editorial"
+      ]
     },
     "Featured": {
       "type": "boolean"
@@ -47,14 +55,6 @@
         "files",
         "videos",
         "audios"
-      ]
-    },
-    "Type": {
-      "type": "enumeration",
-      "enum": [
-        "opinion",
-        "analysis",
-        "editorial"
       ]
     }
   }

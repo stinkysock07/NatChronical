@@ -1,5 +1,3 @@
-import { json, text } from 'stream/consumers';
-
 export interface Article {
   id: number;
   Title: string;
@@ -7,7 +5,7 @@ export interface Article {
   Author: string;
   Date_pub: string;
   slug: string;
-  Content: string;
+  Content: any[];
   Featured: Boolean;
   picture?: string;
   Type: string;
