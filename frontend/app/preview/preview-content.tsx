@@ -41,7 +41,8 @@ export default function PreviewPage() {
                     {article.picture && (
                         <div className="relative h-100 w-full overflow-hidden md:h-75">
                             <Image
-                                src={`${apiUrl}${article.picture.url}`}
+                                src={article.picture.url.startsWith('http') 
+                                    ? article.picture.url : `${apiUrl}${article.picture.url}`}
                                 alt={article.Title}
                                 fill
                                 priority
