@@ -1,20 +1,20 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'pub-da902343a39f42e2b8a99078b67aa4b4.r2.dev',
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '1337',
       },
       {
         protocol: 'https',
-        hostname: 'ncn-backend.up.railway.app',
+        hostname: '**.r2.dev',
       },
     ],
-  },
-  env: {
-    NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+    unoptimized: process.env.NODE_ENV === 'development', // Disable optimization in dev
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

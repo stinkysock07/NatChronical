@@ -46,10 +46,19 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>The National Chronicle</title>
-        <meta name="description" content="View the latest news and articles from The National Chronicle" />
-        <meta name="keywords" content="news, articles, national chronicle, journalism, current events" />
+        <meta
+          name="description"
+          content="View the latest news and articles from The National Chronicle"
+        />
+        <meta
+          name="keywords"
+          content="news, articles, national chronicle, journalism, current events"
+        />
         <meta property="og:title" content="The National Chronicle" />
-        <meta property="og:description" content="View the latest news and articles from The National Chronicle" />
+        <meta
+          property="og:description"
+          content="View the latest news and articles from The National Chronicle"
+        />
       </head>
       <body
         className={`${neirizi.variable} ${publicSans.variable} antialiased`}
@@ -104,7 +113,11 @@ export default function RootLayout({
               <div className="absolute top-full left-1/2 z-50 w-48 -translate-x-1/2 rounded-md border border-[#C8A75A] bg-[#0B1F3A] shadow-lg">
                 <div className="py-2">
                   {Array.from(
-                    new Set(articles.map((article) => article.Genre?.trim()).filter(Boolean)),
+                    new Set(
+                      articles
+                        .map((article) => article.Genre?.trim())
+                        .filter(Boolean),
+                    ),
                   ).map((genre) => (
                     <Link
                       key={genre}
