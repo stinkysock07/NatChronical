@@ -8,8 +8,8 @@ export default async function Home() {
   const article = await fetchArticles();
   const tweets = await fetchTweets();
   return (
-    <div className="grid grid-cols-3 gap-3 p-3 ">
-      <div className="col-span-2 flex flex-col gap-3">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 p-3">
+      <div className="lg:col-span-2 flex flex-col gap-3">
         <section className="flex flex-col gap-2">
           <h1 className="border-l-4 border-[#C8A75A] pl-4 text-2xl font-bold uppercase">
             Featured News
@@ -33,7 +33,7 @@ export default async function Home() {
           </div>
         </section>
       </div>
-      <section className="flex flex-col gap-2">
+      <section className="hidden lg:flex flex-col gap-2">
         <h1 className="border-l-4 border-[#C8A75A] pl-4 text-2xl font-bold uppercase">
           Latest Tweets
         </h1>
