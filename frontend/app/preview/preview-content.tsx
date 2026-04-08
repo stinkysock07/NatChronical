@@ -10,18 +10,19 @@ export default function PreviewPage() {
     const documentId = searchParams.get('documentId');
     const [article, setArticle] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
 
 
     useEffect(() => {
         const fetchPreview = async () => {
             try {
-                const response = await fetch(`/api/preview?documentId=${documentId}`);
+                const response = await fetch(`${apiUrl}/api/articles-preview/${documentId}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch preview');
                 }
                 const data = await response.json();
                 console.log('Preview data:', data);
-                setArticle(data);
+                setArticle(data.data);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -40,7 +41,7 @@ export default function PreviewPage() {
                     {article.picture && (
                         <div className="relative h-100 w-full overflow-hidden md:h-75">
                             <Image
-                                src={`http://localhost:1337${article.picture.url}`}
+                                src={`${apiUrl}${article.picture.url}`}
                                 alt={article.Title}
                                 fill
                                 priority
