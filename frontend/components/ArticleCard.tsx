@@ -21,7 +21,7 @@ export function ArticleCard({ article }: { article: Article }) {
         </div>
       )}
       <div className="flex flex-col gap-1 p-4 sm:p-2">
-        <h3 className="pl-2 text-lg font-semibold group-hover:text-blue-600">
+        <h3 style={{ fontFamily: 'var(--font-cormorant)' }} className="pl-2 text-lg font-bold">
           {article.Title}
         </h3>
         <h4 className="pl-2 text-sm text-gray-600">

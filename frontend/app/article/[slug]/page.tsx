@@ -38,7 +38,7 @@ export default async function ArticlePage({ params }: PageProps) {
           </div>
         )}
         <div className="flex-col justify-start">
-          <h1 className="font-neirizi mt-4 text-3xl font-bold tracking-wide [word-spacing:5px]">
+          <h1 style={{ fontFamily: 'var(--font-cormorant)' }} className="mt-4 text-3xl font-bold tracking-wide [word-spacing:5px] font-bold">
             {article.Title}
           </h1>
           <h2 className="mt-1 text-lg text-gray-600">
