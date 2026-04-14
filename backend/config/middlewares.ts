@@ -10,6 +10,12 @@ export default ({ env }: { env: any }) => [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'https:'],
+          'frame-src': [
+            "'self'",
+            'https://natchronicle.com',
+            'https://www.natchronicle.com',
+            'http://localhost:3000',
+          ],
           'img-src': [
             "'self'",
             'data:',
@@ -32,7 +38,7 @@ export default ({ env }: { env: any }) => [
   {
     name: 'strapi::cors',
     config: {
-      origin: [env('FRONTEND_URL'), 'http://localhost:3000'], 
+      origin: [env('FRONTEND_URL'), 'https://natchronicle.com', 'http://localhost:3000'],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
       keepHeaderOnError: true,

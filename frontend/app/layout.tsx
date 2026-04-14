@@ -7,14 +7,14 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { fetchArticles, Article } from '../lib/data';
 
-const neirizi = localFont({
-  src: '../fonts/Neirizi Regular/Neirizi Regular.ttf',
-  variable: '--font-neirizi',
+export const cormorant = localFont({
+  src: '../fonts/Cormorant/Cormorant-VariableFont_wght.ttf',
+  variable: '--font-cormorant',
 });
 
-const publicSans = localFont({
-  src: '../fonts/Public_Sans/PublicSans-VariableFont_wght.ttf',
-  variable: '--font-public-sans',
+export const sourceSans = localFont({
+  src: '../fonts/Source_Sans_3/SourceSans3-VariableFont_wght.ttf',
+  variable: '--font-source-sans',
 });
 
 export default function RootLayout({
@@ -61,13 +61,13 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${neirizi.variable} ${publicSans.variable} antialiased`}
+        className={`${cormorant.variable} ${sourceSans.variable} antialiased`}
       >
         {isHomePage && (
           <div className="relative aspect-4/1 max-h-75 w-full overflow-hidden bg-[#0B1F3A]">
             <Image
               src="/logos/Copy of NATIONAL CHRONICLE (1500 x 250 px) (1500 x 350 px).png"
-              alt="KeyHolePress Logo"
+              alt="The National Chronicle Logo"
               fill
               priority
               unoptimized={true}
@@ -75,23 +75,25 @@ export default function RootLayout({
             />
           </div>
         )}
-        <nav className="sticky top-0 z-50 grid grid-cols-5 items-center border-t-3 border-[#C8A75A] bg-[#0B1F3A] text-white">
-          <Link href="/" className="text-center text-lg hover:text-[#C8A75A]">
+        <nav className={`${cormorant.className} sticky top-0 z-50 grid grid-cols-5 items-center border-t-3 border-[#C8A75A] bg-[#0B1F3A] text-white`}>
+          <Link href="/" className="text-center text-lg hover:text-[#C8A75A] font-bold">
             Home
           </Link>
           <Link
             href="/about"
-            className="text-center text-lg hover:text-[#C8A75A]"
+            className="text-center text-lg hover:text-[#C8A75A] font-bold"
           >
             About
           </Link>
           <div className="flex justify-center">
+            <Link href="/">
             <Image
               src="/logos/Transparent Logo.png"
-              alt="KeyHolePress Logo"
+              alt="The National Chronicle Logo"
               width={50}
               height={75}
             />
+            </Link>
           </div>
           <div
             className="relative flex justify-center"
@@ -100,7 +102,7 @@ export default function RootLayout({
             <button
               onClick={() => setIsOpen(!isOpen)}
               onMouseEnter={() => setIsOpen(true)}
-              className="flex items-center gap-1 text-lg hover:text-[#C8A75A] focus:outline-none"
+              className="flex items-center gap-1 text-lg hover:text-[#C8A75A] focus:outline-none font-bold"
             >
               Articles
               <span
@@ -110,7 +112,7 @@ export default function RootLayout({
               </span>
             </button>
             {isOpen && (
-              <div className="absolute top-full left-1/2 z-50 w-48 -translate-x-1/2 rounded-md border border-[#C8A75A] bg-[#0B1F3A] shadow-lg">
+              <div className="absolute top-full left-1/2 z-50 w-48 -translate-x-1/2 rounded-md border border-[#C8A75A] bg-[#0B1F3A] shadow-lg font-bold">
                 <div className="py-2">
                   {Array.from(
                     new Set(
@@ -133,7 +135,7 @@ export default function RootLayout({
           </div>
           <Link
             href="/tip"
-            className="text-center text-lg hover:text-[#C8A75A]"
+            className="text-center text-lg hover:text-[#C8A75A] font-bold"
           >
             Have A Tip?
           </Link>
@@ -159,6 +161,7 @@ export default function RootLayout({
                   href="https://x.com/NCNewsOnX"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="transition-colors hover:text-[#C8A75A]"
                 >
                   Follow us on X
                 </Link>

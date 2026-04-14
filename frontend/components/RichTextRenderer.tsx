@@ -25,6 +25,7 @@ interface RichTextRendererProps {
 
 export default function RichTextRenderer({ blocks }: RichTextRendererProps) {
     if (!blocks || !Array.isArray(blocks)) {
+        
         return null;
     }
 
