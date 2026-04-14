@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -15,4 +16,37 @@ body {
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+}
+
+h1 {
+  font-family: var(--font-cormorant), serif;
+  font-weight: bold;
+}
+
+h2 {
+  font-family: var(--font-source-sans), sans-serif;
+  font-style: italic;
+}
+
+p {
+  font-family: var(--font-source-sans), sans-serif;
+  font-style: italic;
+}
+
+input {
+  border: 2px solid; 
+  border-radius: 5px;
+  padding: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  text-align: start;
+  align-items: start;
+}
+
+button {
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #C8A75A;
 }

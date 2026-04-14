@@ -1,3 +1,5 @@
+import { sourceSans } from "./app/layout";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -8,7 +10,7 @@ export default {
   theme: {
     fontFamily: {
       cormorant: ['var(--font-cormorant)', 'serif'],
-      'source-sans': ['var(--font-source-sans)', 'sans-serif'],
+      sourceSans: ['var(--font-source-sans)', 'sans-serif'],
     },
     extend: {
       colors: {

@@ -22,14 +22,14 @@ export function HomeArticleCard({ article }: { article: Article }) {
         </div>
       )}
       <div className="flex flex-col gap-1">
-        <h3 style={{ fontFamily: 'var(--font-cormorant)' }} className="pl-2 text-lg font-bold">
+        <h1 style={{ fontFamily: 'var(--font-cormorant)' }} className="pl-2 text-lg font-bold">
           {article.Title}
-        </h3>
-        <h4 className="pl-2 text-sm text-gray-600">
+        </h1>
+        <h2 className="pl-2 text-sm text-gray-600">
           {formatDateString(article.Date_pub)}
-        </h4>
-        <h4 className="pl-2 text-sm text-gray-600">{article.Author}</h4>
-        <p className="pl-2 text-sm text-gray-600">Read full article →</p>
+        </h2>
+        <h2 className="pl-2 text-sm text-gray-600">{article.Author}</h2>
+        <h2 className="pl-2 text-sm text-gray-600">Read full article →</h2>
       </div>
     </Link>
   );

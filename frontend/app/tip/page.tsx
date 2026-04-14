@@ -38,7 +38,6 @@ export default function Home() {
               placeholder="Your Name..."
               value={formData.name}
               onChange={handleChange}
-              className="rounded-md border-2 p-2 outline-none focus:border-[#C8A75A]"
               required
             ></input>
 
@@ -47,7 +46,6 @@ export default function Home() {
               placeholder="Your Email..."
               value={formData.contact_email}
               onChange={handleChange}
-              className="rounded-md border-2 p-2 outline-none focus:border-[#C8A75A]"
               required
             ></input>
           </>
@@ -57,7 +55,6 @@ export default function Home() {
           placeholder="The Subject..."
           value={formData.subject}
           onChange={handleChange}
-          className="rounded-md border-2 p-2 pb-20 outline-none focus:border-[#C8A75A]"
           required
         ></input>
         <input
@@ -65,7 +62,6 @@ export default function Home() {
           placeholder="Your Tip..."
           value={formData.tip_description}
           onChange={handleChange}
-          className="rounded-md border-2 p-2 pb-20 outline-none focus:border-[#C8A75A]"
           required
         ></input>
         <div className="flex w-full justify-center">

@@ -2,7 +2,6 @@ import { fetchArticles } from '../../lib/data';
 import { HomeArticleCard } from '@/components/HomeArticleCard';
 import { TweetCard } from '@/components/TweetCard';
 import { fetchTweets } from '../../lib/data';
-import { cormorant } from '../layout';
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
@@ -12,7 +11,7 @@ export default async function Home() {
     <div className="grid grid-cols-1 gap-3 p-3 lg:grid-cols-3">
       <div className="flex flex-col gap-3 lg:col-span-2">
         <section className="flex flex-col gap-2">
-          <h1 style={{ fontFamily: 'var(--font-cormorant)' }} className={`border-l-4 border-[#C8A75A] pl-4 text-2xl font-bold uppercase`}>
+          <h1 className={`border-l-4 border-[#C8A75A] pl-4 text-2xl uppercase`}>
             Featured News
           </h1>
           <div className="grid grid-cols-1 gap-2">
@@ -24,7 +23,7 @@ export default async function Home() {
           </div>
         </section>
         <section className="flex flex-col gap-2">
-          <h1 style={{ fontFamily: 'var(--font-cormorant)' }} className={`border-l-4 border-[#C8A75A] pl-4 text-2xl font-bold uppercase`}>
+          <h1 className={`border-l-4 border-[#C8A75A] pl-4 text-2xl uppercase`}>
             Latest News
           </h1>
           <div className="grid grid-cols-1 gap-2">
@@ -35,7 +34,7 @@ export default async function Home() {
         </section>
       </div>
       <section className="hidden flex-col gap-2 lg:flex">
-        <h1 style={{ fontFamily: 'var(--font-cormorant)' }} className={`border-l-4 border-[#C8A75A] pl-4 text-2xl font-bold uppercase`}>
+        <h1 className={`border-l-4 border-[#C8A75A] pl-4 text-2xl uppercase`}>
           Latest Tweets
         </h1>
         <div className="grid grid-cols-1 gap-2">

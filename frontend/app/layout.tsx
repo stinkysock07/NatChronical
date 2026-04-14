@@ -7,16 +7,6 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { fetchArticles, Article } from '../lib/data';
 
-const neirizi = localFont({
-  src: '../fonts/Neirizi Regular/Neirizi Regular.ttf',
-  variable: '--font-neirizi',
-});
-
-const publicSans = localFont({
-  src: '../fonts/Public_Sans/PublicSans-VariableFont_wght.ttf',
-  variable: '--font-public-sans',
-});
-
 export const cormorant = localFont({
   src: '../fonts/Cormorant/Cormorant-VariableFont_wght.ttf',
   variable: '--font-cormorant',
