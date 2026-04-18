@@ -26,7 +26,6 @@ export default function RootLayout({
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isArticlesOpen, setIsArticlesOpen] = useState(false);
-  const isHomePage = pathName === '/';
 
   useEffect(() => {
     let isMounted = true;
@@ -64,18 +63,6 @@ export default function RootLayout({
       <body
         className={`${cormorant.variable} ${sourceSans.variable} antialiased`}
       >
-        {isHomePage && (
-          <div className="relative aspect-4/1 max-h-75 w-full overflow-hidden bg-[#0B1F3A]">
-            <Image
-              src="/logos/Copy of NATIONAL CHRONICLE (1500 x 250 px) (1500 x 350 px).png"
-              alt="The National Chronicle Logo"
-              fill
-              priority
-              unoptimized={true}
-              className="bg-[#0B1F3A]"
-            />
-          </div>
-        )}
         {/* Desktop UI */}
         <nav
           className={`${cormorant.className} hidden sticky top-0 z-50 grid-cols-5 items-center border-t-3 border-[#C8A75A] bg-[#0B1F3A] text-white md:grid`}
@@ -174,17 +161,17 @@ export default function RootLayout({
                 <Image src="/logos/x-logo-background-removed.png" alt="X Logo" width={20} height={20} />
                 </Link>
           {isOpen && (
-            <div className="absolute top-full right-0 left-0 border-b bg-[#C8A75A] shadow-xl max-h-96 overflow-y-auto">
+            <div className="absolute top-full right-0 left-0 border-b bg-[#0B1F3A] shadow-xl max-h-96 overflow-y-auto">
               <div className="flex flex-col">
                 <Link
                   href="/"
-                  className="px-4 text-lg font-bold hover:text-[#0B1F3A]"
+                  className="px-4 text-lg font-bold hover:text-[#C8A75A]"
                 >
                   Home
                 </Link>
                 <Link
                   href="/about"
-                  className="px-4 text-lg font-bold hover:text-[#0B1F3A]"
+                  className="px-4 text-lg font-bold hover:text-[#C8A75A]"
                 >
                   About
                 </Link>
@@ -194,7 +181,7 @@ export default function RootLayout({
                 >
                   <button
                     onClick={() => setIsArticlesOpen(!isArticlesOpen)}
-                    className="text-lg font-bold hover:text-[#0B1F3A]"
+                    className="text-lg font-bold hover:text-[#C8A75A]"
                   >
                     Articles
                     <span
@@ -205,7 +192,7 @@ export default function RootLayout({
                   </button>
 
                   {isArticlesOpen && (
-                    <div className="bg-[#C8A75A]">
+                    <div className="bg-[#0B1F3A]">
                        <div className="px-2">
                         {Array.from(
                           new Set(
@@ -217,7 +204,7 @@ export default function RootLayout({
                           <Link
                             key={genre}
                             href={`/articles?genre=${genre}`}
-                            className="text-sm hover:text-[#0B1F3A]"
+                            className="text-sm hover:text-[#C8A75A] block px-4 py-2"
                           >
                             {genre}
                           </Link>
@@ -228,7 +215,7 @@ export default function RootLayout({
                 </div>
                 <Link
                   href="/tip"
-                  className="px-4 text-lg font-bold hover:text-[#0B1F3A]"
+                  className="px-4 text-lg font-bold hover:text-[#C8A75A]"
                 >
                   Have A Tip?
                 </Link>
