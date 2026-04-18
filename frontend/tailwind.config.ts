@@ -1,4 +1,4 @@
-import { sourceSans } from "./app/layout";
+import { sourceSans } from './app/layout';
 
 /** @type {import('tailwindcss').Config} */
 export default {

@@ -1,137 +1,142 @@
-import { JSX } from "react";
+import { JSX } from 'react';
 
 interface TextNode {
-    type: 'text';
-    text: string;
-    bold?: boolean;
-    italic?: boolean;
-    underline?: boolean;
-    strikethrough?: boolean;
-    code?: boolean;
+  type: 'text';
+  text: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+  strikethrough?: boolean;
+  code?: boolean;
 }
 
 interface Block {
-    id: number;
-    url: string | Blob | undefined;
-    alt: string;
-    type: string;
-    children: (TextNode | any)[];
-    level?: number;
+  id: number;
+  url: string | Blob | undefined;
+  alt: string;
+  type: string;
+  children: (TextNode | any)[];
+  level?: number;
 }
 
 interface RichTextRendererProps {
-    blocks: Block[] | null | undefined;
+  blocks: Block[] | null | undefined;
 }
 
 export default function RichTextRenderer({ blocks }: RichTextRendererProps) {
-    if (!blocks || !Array.isArray(blocks)) {
-        
-        return null;
-    }
+  if (!blocks || !Array.isArray(blocks)) {
+    return null;
+  }
 
-    return (
-        <>
-            {blocks.map((block, index) => (
-                <div key={block.id || index}>
-                    {renderBlock(block)}
-                </div>
-            ))}
-        </>
-    );
+  return (
+    <>
+      {blocks.map((block, index) => (
+        <div key={block.id || index}>{renderBlock(block)}</div>
+      ))}
+    </>
+  );
 }
 
 function renderBlock(block: Block) {
-    const { type, children } = block;
+  const { type, children } = block;
 
-    const renderedChildren = children?.map((child, index) => (
-        <span key={index}>{renderChild(child)}</span>
-    ));
+  const renderedChildren = children?.map((child, index) => (
+    <span key={index}>{renderChild(child)}</span>
+  ));
 
-    switch (type) {
-        case 'paragraph':
-            return <p className="mb-4">{renderedChildren}</p>;
-        case 'heading':
-            const level = block.level || 1;
-            const HeadingTag = `h${Math.min(level + 1, 6)}` as keyof JSX.IntrinsicElements;
-            return (
-                <HeadingTag className={`font-bold mb-3 mt-4 ${getHeadingSize(level)}`}>
-                    {renderedChildren}
-                </HeadingTag>
-            );
-        case 'quote':
-            return (
-                <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4 text-gray-600">
-                    {renderedChildren}
-                </blockquote>
-            );
-        case 'code':
-            return (
-                <pre className="bg-gray-100 p-4 rounded mb-4 overflow-x-auto">
-                    <code>{renderedChildren}</code>
-                </pre>
-            );
-        case 'list':
-            const isOrdered = block.type === 'ordered-list';
-            const ListTag = isOrdered ? 'ol' : 'ul';
-            return (
-                <ListTag className={isOrdered ? 'list-decimal pl-6 mb-4' : 'list-disc pl-6 mb-4'}>
-                    {renderedChildren}
-                </ListTag>
-            );
-        case 'list-item':
-            return <li className="mb-2">{renderedChildren}</li>;
-        case 'image':
-            return (
-                <div className="my-4">
-                    <img
-                        src={block.url}
-                        alt={block.alt || ''}
-                        className="max-w-full h-auto rounded"
-                    />
-                </div>
-            );
-        default:
-            return <p className="mb-4">{renderedChildren}</p>;
-    }
+  switch (type) {
+    case 'paragraph':
+      return <p className="mb-4">{renderedChildren}</p>;
+    case 'heading':
+      const level = block.level || 1;
+      const HeadingTag =
+        `h${Math.min(level + 1, 6)}` as keyof JSX.IntrinsicElements;
+      return (
+        <HeadingTag className={`mt-4 mb-3 font-bold ${getHeadingSize(level)}`}>
+          {renderedChildren}
+        </HeadingTag>
+      );
+    case 'quote':
+      return (
+        <blockquote className="my-4 border-l-4 border-gray-300 pl-4 text-gray-600 italic">
+          {renderedChildren}
+        </blockquote>
+      );
+    case 'code':
+      return (
+        <pre className="mb-4 overflow-x-auto rounded bg-gray-100 p-4">
+          <code>{renderedChildren}</code>
+        </pre>
+      );
+    case 'list':
+      const isOrdered = block.type === 'ordered-list';
+      const ListTag = isOrdered ? 'ol' : 'ul';
+      return (
+        <ListTag
+          className={
+            isOrdered ? 'mb-4 list-decimal pl-6' : 'mb-4 list-disc pl-6'
+          }
+        >
+          {renderedChildren}
+        </ListTag>
+      );
+    case 'list-item':
+      return <li className="mb-2">{renderedChildren}</li>;
+    case 'image':
+      return (
+        <div className="my-4">
+          <img
+            src={block.url}
+            alt={block.alt || ''}
+            className="h-auto max-w-full rounded"
+          />
+        </div>
+      );
+    default:
+      return <p className="mb-4">{renderedChildren}</p>;
+  }
 }
 
 function renderChild(child: TextNode | any) {
-    if (typeof child === 'string') {
-        return child;
-    }
+  if (typeof child === 'string') {
+    return child;
+  }
 
-    if (!child || typeof child !== 'object') {
-        return null;
-    }
+  if (!child || typeof child !== 'object') {
+    return null;
+  }
 
-    const { type, text, bold, italic, underline, strikethrough, code } = child;
+  const { type, text, bold, italic, underline, strikethrough, code } = child;
 
-    if (type === 'text' || !type) {
-        let element = <>{text}</>;
+  if (type === 'text' || !type) {
+    let element = <>{text}</>;
 
-        if (bold) element = <strong>{element}</strong>;
-        if (italic) element = <em>{element}</em>;
-        if (underline) element = <u>{element}</u>;
-        if (strikethrough) element = <s>{element}</s>;
-        if (code) element = <code className="bg-gray-200 px-2 py-1 rounded">{element}</code>;
+    if (bold) element = <strong>{element}</strong>;
+    if (italic) element = <em>{element}</em>;
+    if (underline) element = <u>{element}</u>;
+    if (strikethrough) element = <s>{element}</s>;
+    if (code)
+      element = (
+        <code className="rounded bg-gray-200 px-2 py-1">{element}</code>
+      );
 
-        return element;
-    }
+    return element;
+  }
 
-    return text;
+  return text;
 }
 
 function getHeadingSize(level: number): string {
-    switch (level) {
-        case 1:
-            return 'text-3xl';
-        case 2:
-            return 'text-2xl';
-        case 3:
-            return 'text-xl';
-        case 4:
-            return 'text-lg';
-        default:
-            return 'text-base';
-    }
+  switch (level) {
+    case 1:
+      return 'text-3xl';
+    case 2:
+      return 'text-2xl';
+    case 3:
+      return 'text-xl';
+    case 4:
+      return 'text-lg';
+    default:
+      return 'text-base';
+  }
 }

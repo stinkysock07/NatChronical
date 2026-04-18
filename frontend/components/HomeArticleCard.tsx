@@ -8,7 +8,7 @@ export function HomeArticleCard({ article }: { article: Article }) {
     <Link
       key={article.id}
       href={`/article/${article.slug}`}
-      className="group flex items-center overflow-hidden rounded-xl border transition-all hover:border-[#C8A75A] hover:bg-gray-50"
+      className="group flex items-center overflow-hidden rounded-lg border border-gray-200 bg-linear-to-r from-white to-gray-50 shadow-sm transition-all duration-300 hover:border-[#C8A75A] hover:bg-gray-50 hover:shadow-lg"
     >
       {article.picture && (
         <div className="relative h-30 w-30 shrink-0 overflow-hidden">
@@ -22,7 +22,10 @@ export function HomeArticleCard({ article }: { article: Article }) {
         </div>
       )}
       <div className="flex flex-col gap-1">
-        <h1 style={{ fontFamily: 'var(--font-cormorant)' }} className="pl-2 text-lg font-bold">
+        <h1
+          style={{ fontFamily: 'var(--font-cormorant)' }}
+          className="pl-2 text-lg font-bold"
+        >
           {article.Title}
         </h1>
         <h2 className="pl-2 text-sm text-gray-600">

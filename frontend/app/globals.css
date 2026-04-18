@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -34,7 +33,7 @@ p {
 }
 
 input {
-  border: 2px solid; 
+  border: 2px solid;
   border-radius: 5px;
   padding: 10px;
   outline: none;
@@ -48,5 +47,5 @@ button {
 }
 
 input:focus {
-  border-color: #C8A75A;
+  border-color: #c8a75a;
 }
