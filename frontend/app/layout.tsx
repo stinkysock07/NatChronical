@@ -153,15 +153,15 @@ export default function RootLayout({
             />
           </Link>
           <Link
-                  href="https://x.com/NCNewsOnX"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-[#C8A75A]"
-                >
-                <Image src="/logos/x-logo-background-removed.png" alt="X Logo" width={20} height={20} />
-                </Link>
+            href="https://x.com/NCNewsOnX"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-[#C8A75A]"
+          >
+            <Image src="/logos/x-logo-background-removed.png" alt="X Logo" width={20} height={20} />
+          </Link>
           {isOpen && (
-            <div className="absolute top-full right-0 left-0 border-b bg-[#0B1F3A] shadow-xl max-h-96 overflow-y-auto">
+            <div className="absolute top-full right-0 left-0 border-b bg-[#0B1F3A] shadow-xl max-h-96 overflow-y-auto -mt-px">
               <div className="flex flex-col">
                 <Link
                   href="/"
@@ -185,15 +185,14 @@ export default function RootLayout({
                   >
                     Articles
                     <span
-                className={`inline-block transition-transform ${isArticlesOpen ? 'rotate-180' : ''} px-1`}
-              >
-                ▴
-              </span>
+                      className={`inline-block transition-transform ${isArticlesOpen ? 'rotate-180' : ''} px-1`}
+                    >
+                      ▴
+                    </span>
                   </button>
-
                   {isArticlesOpen && (
                     <div className="bg-[#0B1F3A]">
-                       <div className="px-2">
+                      <div className="px-2">
                         {Array.from(
                           new Set(
                             articles
@@ -227,7 +226,7 @@ export default function RootLayout({
           <div className="custom-scrollbar col-span-1 items-center justify-center overflow-y-auto p-4">
             {children}
             <footer className="mt-20 flex flex-col items-center justify-center gap-2 p-4 text-sm text-gray-600">
-              <nav className="mb-2 flex gap-6">
+              <nav className="flex gap-6">
                 <Link
                   href="/privacy"
                   className="transition-colors hover:text-[#C8A75A]"
