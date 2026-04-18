@@ -65,7 +65,7 @@ export default function RootLayout({
         className={`${cormorant.variable} ${sourceSans.variable} antialiased`}
       >
         {isHomePage && (
-          <div className="relative aspect-4/1 max-h-75 w-full overflow-hidden bg-[#0B1F3A]">
+          <div className="relative aspect-video md:aspect-4/1 max-h-75 w-full overflow-hidden bg-[#0B1F3A]">
             <Image
               src="/logos/Copy of NATIONAL CHRONICLE (1500 x 250 px) (1500 x 350 px).png"
               alt="The National Chronicle Logo"
