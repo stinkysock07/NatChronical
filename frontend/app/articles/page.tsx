@@ -21,7 +21,10 @@ export default async function ArticlesPage({
 
   return (
     <section className="container mx-auto px-4 py-5">
-      <h1 style={{ fontFamily: 'var(--font-cormorant)' }} className="pb-8 text-3xl font-bold">
+      <h1
+        style={{ fontFamily: 'var(--font-cormorant)' }}
+        className="pb-8 text-3xl font-bold"
+      >
         {genre ? `Our ${genre} Articles` : 'All Articles'}
       </h1>
       <nav className="sticky top-0 z-20 -mx-4 mb-8 border-b bg-white/80 p-4 backdrop-blur-md md:hidden">
@@ -30,7 +33,7 @@ export default async function ArticlesPage({
         </p>
         <div className="no-scrollbar flex gap-3 overflow-x-auto pb-2">
           {types.map((type) => (
-            <a 
+            <a
               key={type}
               href={`#${type.toUpperCase()}`}
               className="rounded-full border border-gray-200 bg-white px-4 py-1 text-sm font-medium whitespace-nowrap uppercase shadow-sm transition-transform active:scale-95"
@@ -47,7 +50,10 @@ export default async function ArticlesPage({
             id={type.toUpperCase()}
             className="flex scroll-mt-28 flex-col gap-4"
           >
-            <h2 style={{ fontFamily: 'var(--font-cormorant)' }} className="border-l-4 border-[#C8A75A] pl-4 text-3xl font-bold uppercase">
+            <h2
+              style={{ fontFamily: 'var(--font-cormorant)' }}
+              className="border-l-4 border-[#C8A75A] pl-4 text-3xl font-bold uppercase"
+            >
               {type}
             </h2>
             <div className="flex flex-col gap-4">

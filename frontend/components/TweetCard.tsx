@@ -12,7 +12,7 @@ export function TweetCard({ tweet }: { tweet: Tweet }) {
     <Link
       href={tweet.url || '#'}
       target="_blank"
-      className="group flex flex-col rounded-md border border-gray-900 p-2 transition-all hover:border-[#C8A75A] hover:bg-gray-50"
+      className="group flex flex-col rounded-md border border-gray-200 p-2 transition-all hover:border-[#C8A75A] hover:bg-gray-50 shadow-sm hover:shadow-lg duration-300"
     >
       <p className="text-xs leading-tight text-gray-600">{formattedDate}</p>
       <p className="text-sm">{tweet.text}</p>
