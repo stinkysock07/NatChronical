@@ -11,12 +11,12 @@ export function HomeArticleCard({ article }: { article: Article }) {
       className="group flex items-center overflow-hidden rounded-lg border border-gray-200 bg-linear-to-r from-white to-gray-50 shadow-sm transition-all duration-300 hover:border-[#C8A75A] hover:bg-gray-50 hover:shadow-lg"
     >
       {article.picture && (
-        <div className="relative h-30 w-30 shrink-0 overflow-hidden">
+        <div className="relative aspect-square w-28 shrink-0 overflow-hidden">
           <Image
             src={article.picture}
             alt={article.Title}
             fill
-            sizes="224px"
+            sizes="112px"
             className="object-cover"
           />
         </div>

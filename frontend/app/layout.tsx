@@ -27,6 +27,7 @@ export default function RootLayout({
   const [isOpen, setIsOpen] = useState(false);
   const [isArticlesOpen, setIsArticlesOpen] = useState(false);
 
+
   useEffect(() => {
     let isMounted = true;
     const getArticles = async () => {
@@ -40,6 +41,10 @@ export default function RootLayout({
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathName]);
 
   return (
     <html lang="en">
