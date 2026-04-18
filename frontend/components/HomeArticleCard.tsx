@@ -8,10 +8,10 @@ export function HomeArticleCard({ article }: { article: Article }) {
     <Link
       key={article.id}
       href={`/article/${article.slug}`}
-      className="group flex items-center overflow-hidden rounded-lg border border-gray-200 bg-linear-to-r from-white to-gray-50 shadow-sm transition-all duration-300 hover:border-[#C8A75A] hover:bg-gray-50 hover:shadow-lg"
+      className="group flex items-stretch overflow-hidden rounded-lg border border-gray-200 bg-linear-to-r from-white to-gray-50 shadow-sm transition-all duration-300 hover:border-[#C8A75A] hover:bg-gray-50 hover:shadow-lg"
     >
       {article.picture && (
-        <div className="relative aspect-square w-28 shrink-0 overflow-hidden">
+        <div className="relative aspect-4/3 w-28 shrink-0 overflow-hidden">
           <Image
             src={article.picture}
             alt={article.Title}

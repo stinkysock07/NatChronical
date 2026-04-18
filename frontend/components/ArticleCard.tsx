@@ -10,7 +10,7 @@ export function ArticleCard({ article }: { article: Article }) {
       className="group flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm transition-all hover:border-[#C8A75A] hover:bg-gray-50 hover:shadow-lg"
     >
       {article.picture && (
-        <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden">
+        <div className="relative aspect-4/3 w-full shrink-0 overflow-hidden">
           <Image
             src={article.picture}
             alt={article.Title}
