@@ -171,7 +171,7 @@ export default function RootLayout({
                   rel="noopener noreferrer"
                   className="transition-colors hover:text-[#C8A75A]"
                 >
-                <Image src="/x-logo Background removed.png" alt="X Logo" width={20} height={20} />
+                <Image src="/logos/x-logo-background-removed.png" alt="X Logo" width={20} height={20} />
                 </Link>
           {isOpen && (
             <div className="absolute top-full right-0 left-0 border-b bg-[#C8A75A] shadow-xl max-h-96 overflow-y-auto">
