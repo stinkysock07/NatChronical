@@ -27,9 +27,12 @@ export default async function Home() {
             Latest News
           </h1>
           <div className="grid grid-cols-1 gap-2">
-            {article.map((article) => (
-              <HomeArticleCard key={article.id} article={article} />
-            ))}
+            {article
+              .slice()
+              .reverse()
+              .map((article) => (
+                <HomeArticleCard key={article.id} article={article} />
+              ))}
           </div>
         </section>
       </div>

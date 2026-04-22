@@ -16,7 +16,7 @@ export default async function ArticlesPage({
   }
 
   const types = Array.from(
-    new Set(articles.map((a) => a.Type).filter(Boolean)),
+    new Set(articles.slice().reverse().map((a) => a.Type).filter(Boolean)),
   );
 
   return (
@@ -58,6 +58,8 @@ export default async function ArticlesPage({
             </h2>
             <div className="flex flex-col gap-4">
               {articles
+                .slice()
+                .reverse()
                 .filter((a) => a.Type === type)
                 .map((article) => (
                   <ArticleCard key={article.id} article={article} />
