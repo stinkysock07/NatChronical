@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div className="grid max-w-150 grid-cols-1 md:grid-cols-1">
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <div className="mb-2 flex items-center gap-2 rounded-md border border-gray-200 bg-gray-50 p-3 shadow-sm hover:shadow-lg transition-all duration-300">
+        <div className="mb-2 flex items-center gap-2 rounded-md border border-gray-200 bg-gray-50 p-3 shadow-sm transition-all duration-300 hover:shadow-lg">
           <input
             type="checkbox"
             id="anon"
@@ -85,7 +85,7 @@ export default function Home() {
         </div>
         <button
           type="submit"
-          className="rounded-md bg-[#0B1F3A] py-2 text-white hover:bg-[#C8A75A] shadow-sm transition-all hover:shadow-lg duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="rounded-md bg-[#0B1F3A] py-2 text-white shadow-sm transition-all duration-300 hover:bg-[#C8A75A] hover:shadow-lg disabled:cursor-not-allowed disabled:bg-gray-400"
         >
           Submit Tip
         </button>

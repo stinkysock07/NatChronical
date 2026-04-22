@@ -12,7 +12,7 @@ cd frontend
 npm install
 cd -
 cd backend
-npm instal
+npm install
 ```
 
 Or if you prefer to run it in docker:
