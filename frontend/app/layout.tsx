@@ -27,7 +27,6 @@ export default function RootLayout({
   const [isOpen, setIsOpen] = useState(false);
   const [isArticlesOpen, setIsArticlesOpen] = useState(false);
 
-
   useEffect(() => {
     let isMounted = true;
     const getArticles = async () => {
@@ -70,7 +69,7 @@ export default function RootLayout({
       >
         {/* Desktop UI */}
         <nav
-          className={`${cormorant.className} hidden sticky top-0 z-50 grid-cols-5 items-center border-t-3 border-[#C8A75A] bg-[#0B1F3A] text-white md:grid`}
+          className={`${cormorant.className} sticky top-0 z-50 hidden grid-cols-5 items-center border-t-3 border-[#C8A75A] bg-[#0B1F3A] text-white md:grid`}
         >
           <Link
             href="/"
@@ -141,15 +140,18 @@ export default function RootLayout({
         </nav>
         {/* Mobile UI */}
         <nav
-          className={`${cormorant.className} sticky top-0 z-50 flex items-center border-t-3 border-[#C8A75A] bg-[#0B1F3A] px-4 text-white md:hidden w-full`}
+          className={`${cormorant.className} sticky top-0 z-50 flex w-full items-center border-t-3 border-[#C8A75A] bg-[#0B1F3A] px-4 text-white md:hidden`}
         >
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-3xl hover:text-[#C8A75A] shrink-0 focus:outline-none mr-auto"
+            className="mr-auto shrink-0 text-3xl hover:text-[#C8A75A] focus:outline-none"
           >
             ☰
           </button>
-          <Link href="/" className="shrink-0 flex-1 flex items-center justify-center">
+          <Link
+            href="/"
+            className="flex flex-1 shrink-0 items-center justify-center"
+          >
             <Image
               src="/logos/Transparent Logo.png"
               alt="The National Chronicle Logo"
@@ -163,10 +165,15 @@ export default function RootLayout({
             rel="noopener noreferrer"
             className="transition-colors hover:text-[#C8A75A]"
           >
-            <Image src="/logos/x-logo-background-removed.png" alt="X Logo" width={20} height={20} />
+            <Image
+              src="/logos/x-logo-background-removed.png"
+              alt="X Logo"
+              width={20}
+              height={20}
+            />
           </Link>
           {isOpen && (
-            <div className="absolute top-full right-0 left-0 border-b bg-[#0B1F3A] shadow-xl max-h-96 overflow-y-auto -mt-px">
+            <div className="absolute top-full right-0 left-0 -mt-px max-h-96 overflow-y-auto border-b bg-[#0B1F3A] shadow-xl">
               <div className="flex flex-col">
                 <Link
                   href="/"
@@ -181,7 +188,7 @@ export default function RootLayout({
                   About
                 </Link>
                 <div
-                  className="w-full px-4 relative"
+                  className="relative w-full px-4"
                   onMouseLeave={() => setIsArticlesOpen(false)}
                 >
                   <button
@@ -208,7 +215,7 @@ export default function RootLayout({
                           <Link
                             key={genre}
                             href={`/articles?genre=${genre}`}
-                            className="text-sm hover:text-[#C8A75A] block px-4 py-2"
+                            className="block px-4 py-2 text-sm hover:text-[#C8A75A]"
                           >
                             {genre}
                           </Link>
