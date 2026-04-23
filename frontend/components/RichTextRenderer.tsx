@@ -69,12 +69,14 @@ function renderBlock(block: Block) {
         </pre>
       );
     case 'list':
+    case 'unordered-list':
+    case 'ordered-list':
       const isOrdered = block.type === 'ordered-list';
       const ListTag = isOrdered ? 'ol' : 'ul';
       return (
         <ListTag
           className={
-            isOrdered ? 'mb-4 list-decimal pl-6' : 'mb-4 list-disc pl-6'
+            isOrdered ? 'mb-4 list-disc pl-6' : 'mb-4 list-decimal pl-6'
           }
         >
           {renderedChildren}
