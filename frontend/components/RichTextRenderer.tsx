@@ -17,6 +17,8 @@ interface Block {
   type: string;
   children: (TextNode | any)[];
   level?: number;
+  format?: 'ordered' | 'unordered';
+  ordered?: boolean;
 }
 
 interface RichTextRendererProps {
@@ -39,11 +41,18 @@ export default function RichTextRenderer({ blocks }: RichTextRendererProps) {
 
 function renderBlock(block: Block) {
   const { type, children } = block;
-
-  const renderedChildren = children?.map((child, index) => (
-    <span key={index}>{renderChild(child)}</span>
-  ));
-
+  const renderedChildren =
+    type === 'list'
+      ? children?.map((child, index) => (
+        <li key={index} className="mb-2" style={{ fontFamily: 'var(--font-source-sans), sans-serif' }}>
+          {child.children?.map((textChild: any, i: number) => (
+            <span key={i}>{renderChild(textChild)}</span>
+          ))}
+        </li>
+      ))
+      : children?.map((child, index) => (
+        <span key={index}>{renderChild(child)}</span>
+      ));
   switch (type) {
     case 'paragraph':
       return <p className="mb-4">{renderedChildren}</p>;
@@ -69,19 +78,16 @@ function renderBlock(block: Block) {
         </pre>
       );
     case 'list':
-      const isOrdered = block.type === 'ordered-list';
-      const ListTag = isOrdered ? 'ol' : 'ul';
+      const isOrderedList = block.format === 'ordered';
       return (
-        <ListTag
-          className={
-            isOrdered ? 'mb-4 list-decimal pl-6' : 'mb-4 list-disc pl-6'
-          }
-        >
-          {renderedChildren}
-        </ListTag>
+        <>
+          {isOrderedList ? (
+            <ol className="mb-4 list-decimal pl-6">{renderedChildren}</ol>
+          ) : (
+            <ul className="mb-4 list-disc pl-6">{renderedChildren}</ul>
+          )}
+        </>
       );
-    case 'list-item':
-      return <li className="mb-2">{renderedChildren}</li>;
     case 'image':
       return (
         <div className="my-4">
