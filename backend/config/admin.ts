@@ -1,6 +1,8 @@
 import type { Core } from '@strapi/strapi';
 
-const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => ({
+const config = ({
+  env,
+}: Core.Config.Shared.ConfigParams): Core.Config.Admin => ({
   url: '/admin',
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
@@ -29,7 +31,7 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Admin => 
         return `${env('FRONTEND_URL')}/preview?documentId=${documentId}`;
       },
     },
-  }
+  },
 });
 
 export default config;

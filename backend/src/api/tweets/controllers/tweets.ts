@@ -9,5 +9,5 @@ export default {
     const response = await strapi.service('api::tweets.tweets').getTweets();
     const tweet = response.data.find((t: any) => t.id === id);
     ctx.body = { data: tweet || null };
-  }
+  },
 };

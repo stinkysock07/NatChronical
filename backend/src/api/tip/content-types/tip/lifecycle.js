@@ -16,10 +16,10 @@ module.exports = {
     if (data.name) {
       data.name = DOMPurify.sanitize(data.name);
     }
-    
+
     // You can also add validation here
     if (data.contact_email && data.contact_email !== 'Anonymous') {
-        data.contact_email = DOMPurify.sanitize(data.contact_email);
+      data.contact_email = DOMPurify.sanitize(data.contact_email);
     }
   },
 
