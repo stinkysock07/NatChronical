@@ -29,7 +29,6 @@ export default async function Home() {
           <div className="grid grid-cols-1 gap-2">
             {article
               .slice()
-              .reverse()
               .map((article) => (
                 <HomeArticleCard key={article.id} article={article} />
               ))}
