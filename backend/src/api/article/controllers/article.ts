@@ -3,7 +3,6 @@
  */
 
 import { factories } from '@strapi/strapi';
-import sharp from 'sharp';
 
 export default factories.createCoreController(
   'api::article.article',

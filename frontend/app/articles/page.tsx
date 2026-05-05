@@ -59,7 +59,6 @@ export default async function ArticlesPage({
             <div className="flex flex-col gap-4">
               {articles
                 .slice()
-                .reverse()
                 .filter((a) => a.Type === type)
                 .map((article) => (
                   <ArticleCard key={article.id} article={article} />

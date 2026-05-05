@@ -33,7 +33,7 @@ const STRAPI_URL =
 
 export async function fetchArticles(): Promise<Article[]> {
   try {
-    const response = await fetch(`${STRAPI_URL}/api/articles?populate=*`, {
+    const response = await fetch(`${STRAPI_URL}/api/articles?populate=*&sort=Date_pub:desc`, {
       cache: 'no-store', // Prevents the browser from caching an empty result
     });
 
