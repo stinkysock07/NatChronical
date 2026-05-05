@@ -16,7 +16,7 @@ WORKDIR /opt/app
 COPY package.json package-lock.json ./
 
 # Clear npm cache and use npm ci instead of npm install
-RUN npm cache clean --force && npm ci
+RUN npm cache clean --force && npm install
 
 COPY . .
 
