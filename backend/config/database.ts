@@ -10,7 +10,9 @@ export default ({ env }) => {
         client: 'postgres',
         connection: {
           connectionString: connection,
-          ssl: env.bool('DATABASE_SSL', false) ? { rejectUnauthorized: false } : false,
+          ssl: env.bool('DATABASE_SSL', false)
+            ? { rejectUnauthorized: false }
+            : false,
         },
         pool: { min: 2, max: 10 },
       },
@@ -22,7 +24,12 @@ export default ({ env }) => {
     connection: {
       client: 'sqlite',
       connection: {
-        filename: path.join(__dirname, '..', '..', env('DATABASE_FILENAME', '.tmp/data.db')),
+        filename: path.join(
+          __dirname,
+          '..',
+          '..',
+          env('DATABASE_FILENAME', '.tmp/data.db'),
+        ),
       },
       useNullAsDefault: true,
     },

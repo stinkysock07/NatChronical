@@ -1,7 +1,7 @@
 import type { Core } from '@strapi/strapi';
 
 export default {
-  register(/* { strapi }: { strapi: Core.Strapi } */) { },
+  register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
   bootstrap({ strapi }: { strapi: Core.Strapi }) {
     strapi.server.routes([
@@ -12,17 +12,19 @@ export default {
           try {
             const { documentId } = ctx.params;
 
-           const article = await strapi.documents('api::article.article').findOne({ 
-            documentId,
-            populate: '*'
-          });
-            
+            const article = await strapi
+              .documents('api::article.article')
+              .findOne({
+                documentId,
+                populate: '*',
+              });
+
             if (!article) {
               ctx.status = 404;
               ctx.body = { error: 'Article not found' };
               return;
             }
-            
+
             ctx.body = { data: article };
           } catch (error: any) {
             console.error('Preview error:', error);
@@ -30,7 +32,7 @@ export default {
             ctx.body = { error: error.message };
           }
         },
-        config: { auth: false }
+        config: { auth: false },
       },
       {
         method: 'GET',
@@ -53,7 +55,9 @@ export default {
               return;
             }
 
-            const response = await strapi.service('api::tweets.tweets').getTweets();
+            const response = await strapi
+              .service('api::tweets.tweets')
+              .getTweets();
             ctx.body = { data: response.data };
           } catch (error: any) {
             console.error('Tweets error:', error);
@@ -61,8 +65,8 @@ export default {
             ctx.body = { error: error.message };
           }
         },
-        config: { auth: false }
-      }
+        config: { auth: false },
+      },
     ]);
   },
 };
