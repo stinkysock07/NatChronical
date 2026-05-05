@@ -78,15 +78,18 @@ function renderBlock(block: Block) {
         </pre>
       );
     case 'list':
-      const isOrderedList = block.format === 'ordered';
+    case 'unordered-list':
+    case 'ordered-list':
+      const isOrdered = block.type === 'ordered-list';
+      const ListTag = isOrdered ? 'ol' : 'ul';
       return (
-        <>
-          {isOrderedList ? (
-            <ol className="mb-4 list-decimal pl-6">{renderedChildren}</ol>
-          ) : (
-            <ul className="mb-4 list-disc pl-6">{renderedChildren}</ul>
-          )}
-        </>
+        <ListTag
+          className={
+            isOrdered ? 'mb-4 list-disc pl-6' : 'mb-4 list-decimal pl-6'
+          }
+        >
+          {renderedChildren}
+        </ListTag>
       );
     case 'image':
       return (

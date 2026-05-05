@@ -2,21 +2,21 @@ FROM node:24-alpine
 
 # Adding more specific build dependencies for better-sqlite3
 RUN apk add --no-cache \
-    build-base \
-    gcc \
-    g++ \
-    make \
     python3 \
-    vips-dev \
-    fftw-dev \
-    musl-dev \
-    libstdc++
+    make \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev \
+    pixman-dev
 
 WORKDIR /opt/app
 
 COPY package.json package-lock.json ./
 
-RUN npm install
+# Clear npm cache and use npm ci instead of npm install
+RUN npm cache clean --force && npm install
 
 COPY . .
 

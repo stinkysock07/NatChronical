@@ -16,13 +16,7 @@
     },
     "Genre": {
       "type": "enumeration",
-      "enum": [
-        "Politics",
-        "Economics",
-        "Science",
-        "Sports",
-        "Culture"
-      ]
+      "enum": ["Politics", "Economics", "Science", "Sports", "Culture"]
     },
     "Author": {
       "type": "string"
@@ -38,11 +32,7 @@
     },
     "Type": {
       "type": "enumeration",
-      "enum": [
-        "opinion",
-        "analysis",
-        "editorial"
-      ]
+      "enum": ["opinion", "analysis", "editorial"]
     },
     "Featured": {
       "type": "boolean"
@@ -50,12 +40,7 @@
     "picture": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "allowedTypes": ["images", "files", "videos", "audios"]
     }
   }
 }
