@@ -46,25 +46,25 @@ function renderBlock(block: Block) {
 
   switch (type) {
     case 'paragraph':
-      return <p className="mb-4">{renderedChildren}</p>;
+      return <p className="mb-6 leading-8">{renderedChildren}</p>;
     case 'heading':
       const level = block.level || 1;
       const HeadingTag =
         `h${Math.min(level + 1, 6)}` as keyof JSX.IntrinsicElements;
       return (
-        <HeadingTag className={`mt-4 mb-3 font-bold ${getHeadingSize(level)}`}>
+        <HeadingTag className={`mt-8 mb-4 font-bold ${getHeadingSize(level)}`}>
           {renderedChildren}
         </HeadingTag>
       );
     case 'quote':
       return (
-        <blockquote className="my-4 border-l-4 border-gray-300 pl-4 text-gray-600 italic">
+        <blockquote className="my-8 border-l-4 border-[#C8A75A] bg-gray-50 py-4 pl-6 pr-4 text-lg italic text-gray-700">
           {renderedChildren}
         </blockquote>
       );
     case 'code':
       return (
-        <pre className="mb-4 overflow-x-auto rounded bg-gray-100 p-4">
+        <pre className="mb-6 overflow-x-auto rounded bg-gray-100 p-4 font-mono text-sm">
           <code>{renderedChildren}</code>
         </pre>
       );
@@ -76,26 +76,35 @@ function renderBlock(block: Block) {
       return (
         <ListTag
           className={
-            isOrdered ? 'mb-4 list-disc pl-6' : 'mb-4 list-decimal pl-6'
+            isOrdered
+              ? 'mb-6 list-inside space-y-2 pl-2'
+              : 'mb-6 list-inside space-y-2 pl-2'
           }
         >
           {renderedChildren}
         </ListTag>
       );
     case 'list-item':
-      return <li className="mb-2">{renderedChildren}</li>;
+      return <li className="leading-7">{renderedChildren}</li>;
     case 'image':
       return (
-        <div className="my-4">
-          <img
-            src={block.url}
-            alt={block.alt || ''}
-            className="h-auto max-w-full rounded"
-          />
-        </div>
+        <figure className="my-8 flex flex-col items-center">
+          <div className="relative w-full max-w-2xl">
+            <img
+              src={block.url}
+              alt={block.alt || ''}
+              className="h-auto w-full rounded-lg shadow-md"
+            />
+          </div>
+          {block.alt && (
+            <figcaption className="mt-3 text-center text-sm text-gray-500 italic">
+              {block.alt}
+            </figcaption>
+          )}
+        </figure>
       );
     default:
-      return <p className="mb-4">{renderedChildren}</p>;
+      return <p className="mb-6 leading-8">{renderedChildren}</p>;
   }
 }
 

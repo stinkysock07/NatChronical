@@ -24,32 +24,39 @@ export default async function ArticlePage({ params }: PageProps) {
   }
 
   return (
-    <div className="p-6">
-      <div className="mb-4 flex-col gap-4 border-b-2 border-[#C8A75A] p-2 pb-4">
+    <main className="min-h-screen bg-white">
+      <article className="mx-auto max-w-4xl">
         {article.picture && (
-          <div className="relative h-100 w-full overflow-hidden md:h-75">
+          <div className="relative h-96 w-full overflow-hidden sm:h-125 pt-15">
             <Image
               src={article.picture}
               alt={article.Title}
-              fill
+              width={896}
+              height={504}
               priority
               className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 896px"
             />
           </div>
         )}
-        <div className="flex-col justify-start">
-          <h1 className="mt-4 text-3xl font-bold tracking-wide [word-spacing:5px]">
-            {article.Title}
-          </h1>
-          <h2 className="mt-1 text-lg text-gray-600">
-            By {article.Author} | Published on{' '}
-            {formatDateString(article.Date_pub)}
-          </h2>
+        <div className="px-4 pb-8 sm:px-6 lg:px-8">
+          <header className="mb-8 border-b-2 border-[#C8A75A] pb-6">
+            <h1 className="mb-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+              {article.Title}
+            </h1>
+            <p className="text-base text-gray-600 sm:text-lg">
+              <span className="font-semibold">By {article.Author}</span>
+              {' | '}
+              <time dateTime={article.Date_pub}>
+                {formatDateString(article.Date_pub)}
+              </time>
+            </p>
+          </header>
+          <div className="prose prose-lg max-w-none leading-relaxed text-gray-800">
+            <RichTextRenderer blocks={article.Content} />
+          </div>
         </div>
-      </div>
-      <div className="font-public mt-4 pl-2 leading-relaxed text-gray-800">
-        <RichTextRenderer blocks={article.Content} />
-      </div>
-    </div>
+      </article>
+    </main>
   );
 }
