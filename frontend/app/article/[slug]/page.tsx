@@ -26,20 +26,18 @@ export default async function ArticlePage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-white">
       <article className="mx-auto max-w-3xl">
-        <div className="px-4 pt-10 pb-8 sm:px-6 lg:px-8">
-          {article.picture && (
-            <div className="relative h-96 w-full overflow-hidden sm:h-125 -mx-4 mt-0 sm:-mx-6 lg:-mx-8">
-              <Image
-                src={article.picture}
-                alt={article.Title}
-                width={768}
-                height={504}
-                priority
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 896px"
-              />
-            </div>
-          )}
+        {article.picture && (
+          <div className="relative w-screen sm:w-full overflow-hidden -mx-[calc(50vw-50%)] sm:mx-0 lg:-mx-8 -mt-4 lg:mt-0" style={{ aspectRatio: "16/9" }}>
+            <Image
+              src={article.picture}
+              alt={article.Title}
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+        )}
+        <div className="px-4 pb-8 sm:px-6 lg:px-8">
           <header className="mb-8">
             <h1 className="mb-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
               {article.Title}
