@@ -28,6 +28,14 @@ export interface Tweet {
   url?: string | null;
 }
 
+export interface Newsletter_Subscriber {
+  id: string;
+  email: string;
+  subscription_status: boolean;
+  subscribedAt: string;
+  verificationToken: string;
+}
+
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_API_URL || 'https://ncn-backend.up.railway.app';
 
@@ -146,3 +154,45 @@ export const fetchTweets = async () => {
     return [];
   }
 };
+
+export async function subscribeToNewsletter(email: string) {
+  try {
+    const verificationToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const response = await fetch(`${STRAPI_URL}/api/newsletter-subscribers`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        data: {
+          email: email,
+          subscription_status: true,
+          subscribedAt: new Date().toISOString(),
+          verificationToken: verificationToken,
+        },
+      }),
+    });
+    if (!response.ok) {
+      const errorBody = await response.json();
+      console.error('Strapi error body:', errorBody);
+      throw new Error(errorBody.error?.message || 'Failed to subscribe to newsletter');
+    }
+    
+    const { data } = await response.json();
+
+    await fetch('/api/newsletter/send-verification', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    email,
+    verificationToken,
+  }),
+});
+
+    return {
+      id: data.id,
+      ...data.attributes,
+    };
+  } catch (e) {
+    console.error('Network error:', e);
+    throw e;
+  }
+}

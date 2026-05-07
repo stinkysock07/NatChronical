@@ -36,8 +36,6 @@ export async function POST(req: Request) {
       );
     }
 
-    console.log('Email Payload Received:', body);
-
     const hasValidEmail = contact_email && contact_email.includes('@');
 
     const { data, error } = await resend.emails.send({
