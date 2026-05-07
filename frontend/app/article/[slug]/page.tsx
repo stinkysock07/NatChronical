@@ -25,13 +25,13 @@ export default async function ArticlePage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-white">
-      <article className="mx-auto max-w-4xl">
+      <article className="mx-auto max-w-3xl">
         {article.picture && (
-          <div className="relative h-96 w-full overflow-hidden sm:h-125 pt-15">
+<div className="relative h-96 w-full overflow-hidden sm:h-125">
             <Image
               src={article.picture}
               alt={article.Title}
-              width={896}
+              width={768}
               height={504}
               priority
               className="object-cover"
@@ -39,8 +39,8 @@ export default async function ArticlePage({ params }: PageProps) {
             />
           </div>
         )}
-        <div className="px-4 pb-8 sm:px-6 lg:px-8">
-          <header className="mb-8 border-b-2 border-[#C8A75A] pb-6">
+        <div className="px-4 pb-8 sm:px-6 lg:px-8 -mt-15 sm:-mt-6">
+          <header className="mb-8">
             <h1 className="mb-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
               {article.Title}
             </h1>
@@ -52,6 +52,7 @@ export default async function ArticlePage({ params }: PageProps) {
               </time>
             </p>
           </header>
+          <div className="border-b-2 border-[#C8A75A] -mx-4 lg:-mx-8 mb-8"></div>
           <div className="prose prose-lg max-w-none leading-relaxed text-gray-800">
             <RichTextRenderer blocks={article.Content} />
           </div>
