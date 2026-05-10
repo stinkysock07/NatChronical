@@ -7,19 +7,8 @@ export function ArticleCard({ article }: { article: Article }) {
   return (
     <Link
       href={`/article/${article.slug}`}
-      className="group flex flex-col gap-2 rounded-xl border border-gray-200 p-4 shadow-sm transition-all hover:border-[#C8A75A] hover:bg-gray-50 hover:shadow-lg"
+      className="group flex items-stretch overflow-hidden border-b border-gray-500 pt-2 pb-2 hover:text-[#C8A75A] transition-colors duration-300"
     >
-      {article.picture && (
-        <div className="relative aspect-4/3 w-full shrink-0 overflow-hidden">
-          <Image
-            src={article.picture}
-            alt={article.Title}
-            fill
-            sizes="(max-width: 640px) 100vw, 128px"
-            className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-      )}
       <div className="flex flex-col gap-1 p-4 sm:p-2">
         <h1
           style={{ fontFamily: 'var(--font-cormorant)' }}
