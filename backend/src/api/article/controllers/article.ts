@@ -13,11 +13,11 @@ export default factories.createCoreController(
 },
 
     async findOne(ctx) {
-      const { id } = ctx.params;
+      const { document } = ctx.params;
       const { query } = ctx;
       const { data, meta } = await strapi
         .service('api::article.article')
-        .findOne(id, query);
+        .findOne(document, query);
       return { data, meta };
     },
 
@@ -44,7 +44,7 @@ export default factories.createCoreController(
             ctx.request.body.data || ctx.request.body,
             ctx.request.body,
             ctx.request.files?.image,
-            ).update(ctx.params.id);
+            ).update(ctx.params.document, ctx.request.body);
       return { data };
     },
   }),

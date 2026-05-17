@@ -9,7 +9,38 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export default async function ArticlePage({ params }: PageProps) {
+  export async function generateMetadata({ params }: PageProps) {
+    const {slug} = await params;
+    const articles = await fetchArticles();
+    const article = articles.find((a) => a.slug === slug);
+
+    if (!article) {
+      return {
+        title: 'Article Not Found',
+        description: 'The requested article does not exist.',
+      };
+    }
+    return{
+      title: article.Title,
+      description: `Read "${article.Title}" by ${article.Author} published on ${formatDateString(article.Date_pub)}.`,
+      alternates: {
+      canonical: `https://www.natchronicle.com/article/${article.slug}`,
+    },
+    openGraph: {
+      title: article.Title,
+      description: `Read "${article.Title}" by ${article.Author} published on ${formatDateString(article.Date_pub)}.`,
+      url: `https://www.natchronicle.com/article/${article.slug}`,
+      images: article.picture ? [
+        {
+          url: article.picture,
+          alt: article.Title,
+        },
+      ] : undefined,
+    },
+  }
+  }
+
+  export default async function ArticlePage({ params }: PageProps) {
   // 1. Await the params to get the slug from the URL
   const { slug } = await params;
 
@@ -59,3 +90,5 @@ export default async function ArticlePage({ params }: PageProps) {
     </main>
   );
 }
+
+

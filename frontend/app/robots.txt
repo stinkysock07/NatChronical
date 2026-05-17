@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Optional: block preview/draft endpoints if you use them
+Disallow: /api/preview
+
+Sitemap: https://www.natchronicle.com/sitemap.xml

@@ -39,8 +39,8 @@ const staticRoutes: MetadataRoute.Sitemap = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articles = await fetchArticles();
   const articleUrls: MetadataRoute.Sitemap = articles.map((article) => ({
-    url: `https://www.natchronicle.com/${article.slug}`,
-    lastModified: new Date().toISOString(),
+    url: `https://www.natchronicle.com/article/${article.slug}`,
+    lastModified: article.Date_pub,
     changeFrequency: 'daily',
     priority: 0.8,
   }));
