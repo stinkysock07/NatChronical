@@ -33,34 +33,52 @@ const STRAPI_URL =
 
 export async function fetchArticles(): Promise<Article[]> {
   try {
-    const response = await fetch(`${STRAPI_URL}/api/articles?populate=*&sort=Date_pub:desc`, {
-      cache: 'no-store', // Prevents the browser from caching an empty result
-    });
+   const allArticles: Article[] = [];
+    let page = 1;
+    let pageCount = 1;
 
-    if (!response.ok) throw new Error('Failed to fetch articles from backend');
+    while (page <= pageCount) {
+      const query = new URLSearchParams({
+        populate: '*',
+        sort: 'Date_pub:desc',
+        "pagination[page]": page.toString(),
+        "pagination[pageSize]": '100',
+      });
+      
+      const response = await fetch(`${STRAPI_URL}/api/articles?${query.toString()}`, {
+        cache: 'no-store',
+      });
 
-    const { data } = await response.json();
+      if (!response.ok) throw new Error('Failed to fetch articles from backend');
 
-    if (!data || !Array.isArray(data)) return [];
+      const { data, meta } = await response.json();
+      if (!data || !Array.isArray(data)) return [];
 
-    return data.map((item: any) => {
-      return {
-        id: item.id,
-        Title: item.Title || 'Untitled',
-        Genre: item.Genre || 'Untitled',
-        Author: item.Author,
-        Date_pub: item.Date_pub,
-        slug: item.slug,
-        Content: item.Content,
-        Featured: item.Featured,
-        picture: item.picture?.url
-          ? item.picture.url.startsWith('http')
-            ? item.picture.url
-            : `${STRAPI_URL}${item.picture.url}`
-          : undefined,
-        Type: item.Type,
-      };
-    });
+      allArticles.push(...data.map((item: any) => {
+        return {
+          id: item.id,
+          Title: item.Title || 'Untitled',
+          Genre: item.Genre || 'Untitled',
+          Author: item.Author,
+          Date_pub: item.Date_pub,
+          slug: item.slug,
+          Content: item.Content,
+          Featured: item.Featured,
+          picture: item.picture?.url
+            ? item.picture.url.startsWith('http')
+              ? item.picture.url
+              : `${STRAPI_URL}${item.picture.url}`
+            : undefined,
+          Type: item.Type,
+        };
+      }));
+
+      pageCount = meta.pagination.pageCount;
+      page += 1;
+    }
+
+    return allArticles;
+
   } catch (e) {
     console.error(e);
     return [];
