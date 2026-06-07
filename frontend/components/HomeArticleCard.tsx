@@ -7,7 +7,7 @@ export function HomeArticleCard({ article }: { article: Article }) {
     <Link
       key={article.id}
       href={`/article/${article.slug}`}
-      className="group flex items-stretch overflow-hidden border-b border-gray-500 pt-2 pb-2 hover:text-[#C8A75A] transition-colors duration-300"
+      className="group flex items-stretch overflow-hidden border-b border-gray-500 pt-2 pb-4 hover:text-[#C8A75A] transition-colors duration-300"
     >
       <div className="flex flex-col gap-1">
         <h1
