@@ -3,14 +3,13 @@
  */
 
 import { factories } from '@strapi/strapi';
-import sharp from 'sharp';
 
 export default factories.createCoreController(
   'api::article.article',
   ({ strapi }) => ({
     async find(ctx) {
-  return super.find(ctx);
-},
+      return super.find(ctx);
+    },
 
     async findOne(ctx) {
       const { id } = ctx.params;
@@ -23,13 +22,14 @@ export default factories.createCoreController(
 
     async create(ctx) {
       try {
+        const images =
+          ctx.request.files?.picture ??
+          ctx.request.files?.pictures ??
+          ctx.request.files?.image;
+
         const processedData = await strapi
           .service('api::article.article')
-          .createWithImage(
-            ctx.request.body.data || ctx.request.body,
-            ctx.request.body,
-            ctx.request.files?.image,
-          );
+          .createWithImages(ctx.request.body.data || ctx.request.body, images);
         return { data: processedData };
       } catch (error) {
         console.error('Error creating article:', error);
@@ -38,14 +38,25 @@ export default factories.createCoreController(
     },
 
     async update(ctx) {
-      const data = await strapi
-        .service('api::article.article')
-        .createWithImage(
+      try {
+        const images =
+          ctx.request.files?.picture ??
+          ctx.request.files?.pictures ??
+          ctx.request.files?.image;
+
+        const data = await strapi
+          .service('api::article.article')
+          .updateWithImages(
+            ctx.params.id,
             ctx.request.body.data || ctx.request.body,
-            ctx.request.body,
-            ctx.request.files?.image,
-            ).update(ctx.params.id);
-      return { data };
+            images,
+          );
+
+        return { data };
+      } catch (error) {
+        console.error('Error updating article:', error);
+        ctx.throw(500, 'An error occurred while updating the article');
+      }
     },
   }),
 );

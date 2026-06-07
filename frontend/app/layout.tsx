@@ -23,6 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isArticlesOpen, setIsArticlesOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function RootLayout({
       const data = await fetchArticles();
       if (isMounted) {
         setArticles(data);
+        setIsLoading(false);
       }
     };
     getArticles();
@@ -236,7 +238,7 @@ export default function RootLayout({
         </nav>
         <main className="h-full gap-4 overflow-hidden">
           <div className="custom-scrollbar col-span-1 items-center justify-center overflow-y-auto p-4">
-            {children}
+             {children}
             <footer className="mt-20 flex flex-col items-center justify-center gap-2 p-4 text-sm text-gray-600">
               <nav className="flex gap-6">
                 <Link

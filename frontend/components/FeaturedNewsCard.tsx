@@ -30,7 +30,7 @@ export function FeaturedArticleCard({ article }: { article: Article }) {
         <Link
             key={article.id}
             href={`/article/${article.slug}`}
-            className="group flex flex-col sm:flex-row items-stretch overflow-hidden border-b border-gray-500 pt-2 pb-2 hover:text-[#C8A75A] transition-colors duration-300"
+            className="group flex flex-col sm:flex-row items-stretch overflow-hidden border-b border-gray-500 pt-2 pb-4 hover:text-[#C8A75A] transition-colors duration-300"
         >
             {article.picture && (
                 <div className="relative w-full h-45 overflow-hidden">
