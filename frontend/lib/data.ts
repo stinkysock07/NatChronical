@@ -103,24 +103,6 @@ export async function fetchArticles(): Promise<Article[]> {
     }
 
     return allArticles;
-
-    return data.map((item: any) => {
-      const pictures = normalizeMediaUrls(item.picture);
-
-      return {
-        id: item.id,
-        Title: item.Title || 'Untitled',
-        Genre: item.Genre || 'Untitled',
-        Author: item.Author,
-        Date_pub: item.Date_pub,
-        slug: item.slug,
-        Content: item.Content,
-        Featured: item.Featured,
-        picture: pictures[0],
-        pictures,
-        Type: item.Type,
-      };
-    });
   } catch (e) {
     console.error(e);
     return [];
