@@ -58,7 +58,7 @@ function normalizeMediaUrls(media: any): string[] {
 
 export async function fetchArticles(): Promise<Article[]> {
   try {
-   const allArticles: Article[] = [];
+    const allArticles: Article[] = [];
     let page = 1;
     let pageCount = 1;
 
@@ -69,7 +69,7 @@ export async function fetchArticles(): Promise<Article[]> {
         "pagination[page]": page.toString(),
         "pagination[pageSize]": '100',
       });
-      
+
       const response = await fetch(`${STRAPI_URL}/api/articles?${query.toString()}`, {
         cache: 'no-store',
       });
@@ -80,6 +80,8 @@ export async function fetchArticles(): Promise<Article[]> {
       if (!data || !Array.isArray(data)) return [];
 
       allArticles.push(...data.map((item: any) => {
+        const pictures = normalizeMediaUrls(item.picture);
+
         return {
           id: item.id,
           Title: item.Title || 'Untitled',
@@ -89,11 +91,8 @@ export async function fetchArticles(): Promise<Article[]> {
           slug: item.slug,
           Content: item.Content,
           Featured: item.Featured,
-          picture: item.picture?.url
-            ? item.picture.url.startsWith('http')
-              ? item.picture.url
-              : `${STRAPI_URL}${item.picture.url}`
-            : undefined,
+          picture: pictures[0],
+          pictures,
           Type: item.Type,
         };
       }));
