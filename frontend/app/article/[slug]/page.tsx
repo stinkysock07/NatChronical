@@ -9,6 +9,75 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+function expandContentBlocks(blocks: any[] = []) {
+  return blocks.flatMap((block) => {
+    if (
+      block?.type !== 'paragraph' ||
+      !Array.isArray(block.children) ||
+      block.children.length !== 1 ||
+      typeof block.children[0]?.text !== 'string'
+    ) {
+      return [block];
+    }
+
+    const words = block.children[0].text.trim().split(/\s+/).filter(Boolean);
+
+    if (words.length <= 60) {
+      return [block];
+    }
+
+    const chunks: any[] = [];
+
+    for (let index = 0; index < words.length; index += 60) {
+      chunks.push({
+        ...block,
+        children: [
+          {
+            ...block.children[0],
+            text: words.slice(index, index + 60).join(' '),
+          },
+        ],
+      });
+    }
+
+    return chunks;
+  });
+}
+
+function splitBlocksWithImages(blocks: any[] = [], images: string[] = []) {
+  if (!images.length) {
+    return [{ blocks, image: null as string | null }];
+  }
+
+  const segments: { blocks: any[]; image: string | null }[] = [];
+  const imageSlots = images.length;
+  const blocksPerSegment =
+    blocks.length > 0 ? Math.ceil(blocks.length / (imageSlots + 1)) : 0;
+
+  let blockIndex = 0;
+
+  for (let imageIndex = 0; imageIndex < imageSlots; imageIndex += 1) {
+    const nextBlockIndex =
+      blocksPerSegment > 0
+        ? Math.min(blocks.length, blockIndex + blocksPerSegment)
+        : blockIndex;
+    segments.push({
+      blocks: blocks.slice(blockIndex, nextBlockIndex),
+      image: images[imageIndex],
+    });
+    blockIndex = nextBlockIndex;
+  }
+
+  if (blockIndex < blocks.length || segments.length === 0) {
+    segments.push({
+      blocks: blocks.slice(blockIndex),
+      image: null,
+    });
+  }
+
+  return segments;
+}
+
 export default async function ArticlePage({ params }: PageProps) {
   // 1. Await the params to get the slug from the URL
   const { slug } = await params;
@@ -23,13 +92,25 @@ export default async function ArticlePage({ params }: PageProps) {
     notFound();
   }
 
+  const articleImages = article.pictures?.length
+    ? article.pictures
+    : article.picture
+      ? [article.picture]
+      : [];
+  const heroImage = articleImages[0] ?? null;
+  const expandedBlocks = expandContentBlocks(article.Content);
+  const articleBodySegments = splitBlocksWithImages(
+    expandedBlocks,
+    articleImages.slice(1),
+  );
+
   return (
     <main className="min-h-screen bg-white">
       <article className="mx-auto max-w-3xl">
-        {article.picture && (
-          <div className="relative w-screen sm:w-full overflow-hidden -mx-[calc(50vw-50%)] sm:mx-0 lg:-mx-8 -mt-4 lg:mt-0" style={{ aspectRatio: "16/9" }}>
+        {heroImage && (
+          <div className="relative w-screen sm:w-full overflow-hidden rounded-2xl -mx-[calc(50vw-50%)] sm:mx-0 lg:-mx-8 -mt-4 lg:mt-0" style={{ aspectRatio: '16/9' }}>
             <Image
-              src={article.picture}
+              src={heroImage}
               alt={article.Title}
               fill
               priority
@@ -51,8 +132,26 @@ export default async function ArticlePage({ params }: PageProps) {
             </p>
           </header>
           <div className="border-b-2 border-[#C8A75A] -mx-4 lg:-mx-8 mb-8"></div>
+
           <div className="prose prose-lg max-w-none leading-relaxed text-gray-800">
-            <RichTextRenderer blocks={article.Content} />
+            {articleBodySegments.map((segment, index) => (
+              <div key={`${article.id}-${index}`} className="mb-8">
+                <RichTextRenderer blocks={segment.blocks} />
+                {segment.image && (
+                  <div
+                    className="my-6 relative overflow-hidden rounded-2xl bg-gray-100"
+                    style={{ aspectRatio: '16/9' }}
+                  >
+                    <Image
+                      src={segment.image}
+                      alt={`${article.Title} image ${index + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </article>

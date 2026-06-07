@@ -5,6 +5,96 @@ import { formatDateString } from '@/lib/dateUtils';
 import { useSearchParams } from 'next/navigation';
 import RichTextRenderer from '@/components/RichTextRenderer';
 
+function normalizePreviewImages(picture: any): string[] {
+  const mediaItems = Array.isArray(picture)
+    ? picture
+    : picture?.data
+      ? Array.isArray(picture.data)
+        ? picture.data
+        : [picture.data]
+      : picture
+        ? [picture]
+        : [];
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
+
+  return mediaItems
+    .map((item: any) => item?.url ?? item?.attributes?.url)
+    .filter((url: string | undefined): url is string => Boolean(url))
+    .map((url: string) =>
+      url.startsWith('http') ? url : `${apiUrl}${url}`,
+    );
+}
+
+function expandContentBlocks(blocks: any[] = []) {
+  return blocks.flatMap((block) => {
+    if (
+      block?.type !== 'paragraph' ||
+      !Array.isArray(block.children) ||
+      block.children.length !== 1 ||
+      typeof block.children[0]?.text !== 'string'
+    ) {
+      return [block];
+    }
+
+    const words = block.children[0].text.trim().split(/\s+/).filter(Boolean);
+
+    if (words.length <= 60) {
+      return [block];
+    }
+
+    const chunks: any[] = [];
+
+    for (let index = 0; index < words.length; index += 60) {
+      chunks.push({
+        ...block,
+        children: [
+          {
+            ...block.children[0],
+            text: words.slice(index, index + 60).join(' '),
+          },
+        ],
+      });
+    }
+
+    return chunks;
+  });
+}
+
+function splitBlocksWithImages(blocks: any[] = [], images: string[] = []) {
+  if (!images.length) {
+    return [{ blocks, image: null as string | null }];
+  }
+
+  const segments: { blocks: any[]; image: string | null }[] = [];
+  const imageSlots = images.length;
+  const blocksPerSegment =
+    blocks.length > 0 ? Math.ceil(blocks.length / (imageSlots + 1)) : 0;
+
+  let blockIndex = 0;
+
+  for (let imageIndex = 0; imageIndex < imageSlots; imageIndex += 1) {
+    const nextBlockIndex =
+      blocksPerSegment > 0
+        ? Math.min(blocks.length, blockIndex + blocksPerSegment)
+        : blockIndex;
+    segments.push({
+      blocks: blocks.slice(blockIndex, nextBlockIndex),
+      image: images[imageIndex],
+    });
+    blockIndex = nextBlockIndex;
+  }
+
+  if (blockIndex < blocks.length || segments.length === 0) {
+    segments.push({
+      blocks: blocks.slice(blockIndex),
+      image: null,
+    });
+  }
+
+  return segments;
+}
+
 export default function PreviewPage() {
   const searchParams = useSearchParams();
   const documentId = searchParams.get('documentId');
@@ -35,26 +125,30 @@ export default function PreviewPage() {
     }
   }, [documentId]);
 
+  const previewImages = normalizePreviewImages(article?.picture);
+  const heroImage = previewImages[0] ?? null;
+  const expandedBlocks = expandContentBlocks(article?.Content || []);
+  const previewSegments = splitBlocksWithImages(
+    expandedBlocks,
+    previewImages.slice(1),
+  );
+
   return (
     <div className="p-6">
       {article && (
         <>
-          <div className="mb-4 flex-col gap-4 border-b-2 border-[#C8A75A] p-2 pb-4">
-            {article.picture && (
-              <div className="relative h-100 w-full overflow-hidden md:h-75">
-                <Image
-                  src={
-                    article.picture.url.startsWith('http')
-                      ? article.picture.url
-                      : `${apiUrl}${article.picture.url}`
-                  }
-                  alt={article.Title}
-                  fill
-                  priority
-                  className="object-cover"
-                />
-              </div>
-            )}
+          {heroImage && (
+            <div className="relative mb-4 h-100 w-full overflow-hidden rounded-2xl bg-gray-100 md:h-75">
+              <Image
+                src={heroImage}
+                alt={article.Title}
+                fill
+                priority
+                className="object-cover"
+              />
+            </div>
+          )}
+          <div className="mb-4 border-b-2 border-[#C8A75A] p-2 pb-4">
             <div className="flex-col justify-start">
               <h1 className="font-neirizi mt-4 text-3xl font-bold tracking-wide [word-spacing:5px]">
                 {article.Title}
@@ -65,8 +159,26 @@ export default function PreviewPage() {
               </h2>
             </div>
           </div>
-          <div className="font-public mt-4 pl-2 leading-relaxed text-gray-800">
-            <RichTextRenderer blocks={article.Content} />
+          <div className="font-public mt-4 pl-2 leading-relaxed text-gray-800 ">
+            {previewSegments.map((segment, index) => (
+              <div key={`${article.id || documentId}-${index}`} className="mb-8">
+                <RichTextRenderer blocks={segment.blocks} />
+                {segment.image && (
+                  <div
+                    className="my-6 relative overflow-hidden rounded-2xl bg-gray-100"
+                    style={{ aspectRatio: '16/9' }}
+                  >
+                    <Image
+                      src={segment.image}
+                      alt={`${article.Title} image ${index + 1}`}
+                      fill
+                      priority={index === 0}
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </>
       )}

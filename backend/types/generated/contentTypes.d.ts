@@ -504,7 +504,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       'api::article.article'
     > &
       Schema.Attribute.Private;
-    picture: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    picture: Schema.Attribute.Media<'images', true>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID;
     Title: Schema.Attribute.String;

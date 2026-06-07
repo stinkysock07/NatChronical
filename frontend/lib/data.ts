@@ -8,6 +8,7 @@ export interface Article {
   Content: any[];
   Featured: Boolean;
   picture?: string;
+  pictures?: string[];
   Type: string;
 }
 
@@ -31,6 +32,30 @@ export interface Tweet {
 const STRAPI_URL =
   process.env.NEXT_PUBLIC_API_URL || 'https://ncn-backend.up.railway.app';
 
+function normalizeMediaUrls(media: any): string[] {
+  const mediaItems = Array.isArray(media)
+    ? media
+    : media?.data
+      ? Array.isArray(media.data)
+        ? media.data
+        : [media.data]
+      : media
+        ? [media]
+        : [];
+
+  return mediaItems
+    .map((item: any) => {
+      const url = item?.url ?? item?.attributes?.url;
+
+      if (!url) {
+        return undefined;
+      }
+
+      return url.startsWith('http') ? url : `${STRAPI_URL}${url}`;
+    })
+    .filter((url: string | undefined): url is string => Boolean(url));
+}
+
 export async function fetchArticles(): Promise<Article[]> {
   try {
     const response = await fetch(`${STRAPI_URL}/api/articles?populate=*&sort=Date_pub:desc`, {
@@ -44,6 +69,8 @@ export async function fetchArticles(): Promise<Article[]> {
     if (!data || !Array.isArray(data)) return [];
 
     return data.map((item: any) => {
+      const pictures = normalizeMediaUrls(item.picture);
+
       return {
         id: item.id,
         Title: item.Title || 'Untitled',
@@ -53,11 +80,8 @@ export async function fetchArticles(): Promise<Article[]> {
         slug: item.slug,
         Content: item.Content,
         Featured: item.Featured,
-        picture: item.picture?.url
-          ? item.picture.url.startsWith('http')
-            ? item.picture.url
-            : `${STRAPI_URL}${item.picture.url}`
-          : undefined,
+        picture: pictures[0],
+        pictures,
         Type: item.Type,
       };
     });
