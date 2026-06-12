@@ -3,79 +3,14 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { formatDateString } from '@/lib/dateUtils';
 import RichTextRenderer from '@/components/RichTextRenderer';
+import {
+  prepareRichTextBlocks,
+  splitBlocksWithImages,
+} from '@/lib/richTextLayout';
 
 // Define the shape of the params (Next.js 15 requires awaiting params)
 interface PageProps {
   params: Promise<{ slug: string }>;
-}
-
-function expandContentBlocks(blocks: any[] = []) {
-  return blocks.flatMap((block) => {
-    if (
-      block?.type !== 'paragraph' ||
-      !Array.isArray(block.children) ||
-      block.children.length !== 1 ||
-      typeof block.children[0]?.text !== 'string'
-    ) {
-      return [block];
-    }
-
-    const words = block.children[0].text.trim().split(/\s+/).filter(Boolean);
-
-    if (words.length <= 60) {
-      return [block];
-    }
-
-    const chunks: any[] = [];
-
-    for (let index = 0; index < words.length; index += 60) {
-      chunks.push({
-        ...block,
-        children: [
-          {
-            ...block.children[0],
-            text: words.slice(index, index + 60).join(' '),
-          },
-        ],
-      });
-    }
-
-    return chunks;
-  });
-}
-
-function splitBlocksWithImages(blocks: any[] = [], images: string[] = []) {
-  if (!images.length) {
-    return [{ blocks, image: null as string | null }];
-  }
-
-  const segments: { blocks: any[]; image: string | null }[] = [];
-  const imageSlots = images.length;
-  const blocksPerSegment =
-    blocks.length > 0 ? Math.ceil(blocks.length / (imageSlots + 1)) : 0;
-
-  let blockIndex = 0;
-
-  for (let imageIndex = 0; imageIndex < imageSlots; imageIndex += 1) {
-    const nextBlockIndex =
-      blocksPerSegment > 0
-        ? Math.min(blocks.length, blockIndex + blocksPerSegment)
-        : blockIndex;
-    segments.push({
-      blocks: blocks.slice(blockIndex, nextBlockIndex),
-      image: images[imageIndex],
-    });
-    blockIndex = nextBlockIndex;
-  }
-
-  if (blockIndex < blocks.length || segments.length === 0) {
-    segments.push({
-      blocks: blocks.slice(blockIndex),
-      image: null,
-    });
-  }
-
-  return segments;
 }
 
 export default async function ArticlePage({ params }: PageProps) {
@@ -98,7 +33,7 @@ export default async function ArticlePage({ params }: PageProps) {
       ? [article.picture]
       : [];
   const heroImage = articleImages[0] ?? null;
-  const expandedBlocks = expandContentBlocks(article.Content);
+  const expandedBlocks = prepareRichTextBlocks(article.Content);
   const articleBodySegments = splitBlocksWithImages(
     expandedBlocks,
     articleImages.slice(1),
@@ -108,7 +43,7 @@ export default async function ArticlePage({ params }: PageProps) {
     <main className="min-h-screen bg-white">
       <article className="mx-auto max-w-3xl">
         {heroImage && (
-          <div className="relative w-screen sm:w-full overflow-hidden rounded-2xl -mx-[calc(50vw-50%)] sm:mx-0 lg:-mx-8 -mt-4 lg:mt-0" style={{ aspectRatio: '16/9' }}>
+          <div className="relative w-screen sm:w-full overflow-hidden -mx-[calc(50vw-50%)] sm:mx-0 lg:-mx-8 -mt-4 lg:mt-0" style={{ aspectRatio: '16/9' }}>
             <Image
               src={heroImage}
               alt={article.Title}
@@ -139,7 +74,7 @@ export default async function ArticlePage({ params }: PageProps) {
                 <RichTextRenderer blocks={segment.blocks} />
                 {segment.image && (
                   <div
-                    className="my-6 relative overflow-hidden rounded-2xl bg-gray-100"
+                    className="my-6 relative overflow-hidden bg-gray-100"
                     style={{ aspectRatio: '16/9' }}
                   >
                     <Image

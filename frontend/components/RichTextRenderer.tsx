@@ -11,9 +11,9 @@ interface TextNode {
 }
 
 interface Block {
-  id: number;
-  url: string | Blob | undefined;
-  alt: string;
+  id?: number | string;
+  url?: string | Blob;
+  alt?: string;
   type: string;
   children: (TextNode | any)[];
   level?: number;
