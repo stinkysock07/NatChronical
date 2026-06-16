@@ -80,13 +80,11 @@ export default function PreviewPage() {
     <main className="min-h-screen bg-white">
       <article className="mx-auto max-w-3xl">
         {heroImage && (
-          <div className="relative w-screen sm:w-full overflow-hidden rounded-2xl -mx-[calc(50vw-50%)] sm:mx-0 lg:-mx-8 -mt-4 lg:mt-0" style={{ aspectRatio: '16/9' }}>
-            <Image
+          <div className="overflow-hidden rounded-2xl bg-gray-50 p-2">
+            <img
               src={heroImage}
               alt={article.Title}
-              fill
-              priority
-              className="object-cover"
+              className="h-auto w-full rounded-lg"
             />
           </div>
         )}
@@ -110,15 +108,11 @@ export default function PreviewPage() {
               <div key={`${article.id || documentId}-${index}`}>
                 {!!segment.blocks.length && <RichTextRenderer blocks={segment.blocks} />}
                 {segment.image && (
-                  <div
-                    className="my-6 relative overflow-hidden rounded-2xl bg-gray-100"
-                    style={{ aspectRatio: '16/9' }}
-                  >
-                    <Image
+                  <div className="my-6 overflow-hidden rounded-xl bg-gray-50 p-2">
+                    <img
                       src={segment.image}
                       alt={`${article.Title} image ${index + 1}`}
-                      fill
-                      className="object-cover"
+                      className="h-auto w-full rounded-lg"
                     />
                   </div>
                 )}
