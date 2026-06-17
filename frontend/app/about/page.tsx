@@ -8,7 +8,7 @@ export default function Home() {
           </h1>
         </div>
         <p className="font-public text-lg leading-relaxed">
-          The National Chronicle, like everyone, has bared witness to the
+          The National Chronicle, like everyone, has borne witness to the
           erosion of truth and the infinitely expanding information war that has
           become nearly unbearable to navigate. In the fight for credibility,
           society has separated into increasingly miniature and enraged sects of
